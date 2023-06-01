@@ -22,10 +22,12 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
+			"@ui": ["components/ui/*", "components/ui/"],
 			"@atoms": ["components/atoms/*", "components/atoms/"],
 			"@organisms": ["components/organisms/*", "components/organisms/"],
 			"@mutations": ["hooks/mutations/*", "hooks/mutations/"],
-			"@queries": ["hooks/queries/*", "hooks/queries/"]
+			"@queries": ["hooks/queries/*", "hooks/queries/"],
+			"@hooks": ["hooks/*", "hooks/"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

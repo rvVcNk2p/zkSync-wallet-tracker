@@ -1,4 +1,5 @@
 import WalletAuthenticationWrapper from '@/components/organisms/wrappers/WalletAuthenticationWrapper'
+import { PageLayout } from '@ui'
 import { FC } from 'react'
 
 interface DashboardLayoutProps {
@@ -11,7 +12,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
 	return (
 		<WalletAuthenticationWrapper>
 			{/* HEADER */}
-			{children}
+			<PageLayout>{children}z</PageLayout>
 		</WalletAuthenticationWrapper>
 	)
 }

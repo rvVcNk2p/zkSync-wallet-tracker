@@ -1,4 +1,5 @@
 import { QueryProvider, RainbowKitWrapper, ThemeWrapper } from '@organisms'
+import { Toaster } from '@ui'
 
 import './globals.css'
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 							<ThemeWrapper>{children}</ThemeWrapper>
 						</RainbowKitWrapper>
 					</QueryProvider>
+					<Toaster />
 				</main>
 			</body>
 		</html>

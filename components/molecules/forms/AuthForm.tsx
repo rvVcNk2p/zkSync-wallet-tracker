@@ -1,6 +1,6 @@
 'use client'
 
-import { useIsMounted } from '@/hooks/useIsMounted'
+import { useIsMounted } from '@hooks'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { redirect } from 'next/navigation'
 import { FC } from 'react'
