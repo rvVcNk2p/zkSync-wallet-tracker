@@ -11,7 +11,7 @@ const ThemeWrapper: FC<ThemeWrapperProps> = ({
 	children,
 }: ThemeWrapperProps) => {
 	return (
-		<ThemeProvider attribute="class" defaultTheme="dark">
+		<ThemeProvider attribute="class" defaultTheme="light">
 			{children}
 		</ThemeProvider>
 	)
