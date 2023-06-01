@@ -29,6 +29,7 @@ export default function DashboardPage() {
 						>
 							Destructive
 						</Button>
+						<Button variant="pushable">Pushable</Button>
 					</div>
 				</div>
 			</div>

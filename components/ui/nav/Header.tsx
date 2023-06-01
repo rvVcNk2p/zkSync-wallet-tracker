@@ -2,18 +2,23 @@
 
 import {
 	NavigationMenu,
-	NavigationMenuContent,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
-	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
 import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 import { Moon, SunDim } from '@phosphor-icons/react'
+import { Button } from '@ui'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import * as React from 'react'
+import React from 'react'
+import { useState } from 'react'
 
 type NavItem = {
 	href: string
@@ -27,10 +32,12 @@ const navItems: NavItem[] = [
 ]
 
 const Header = (): JSX.Element => {
+	const [popoverStatus, setPopoverStatus] = useState(false)
+
 	return (
 		<>
-			<NavigationMenu>
-				<NavigationMenuList>
+			<NavigationMenu className="mt-4 gap-2">
+				<NavigationMenuList className="gap-2">
 					{navItems.map((item: NavItem) => (
 						<NavigationMenuItem key={item.href}>
 							<Link href={item.href} legacyBehavior passHref>
@@ -41,6 +48,25 @@ const Header = (): JSX.Element => {
 						</NavigationMenuItem>
 					))}
 				</NavigationMenuList>
+
+				<Popover open={popoverStatus}>
+					<PopoverTrigger asChild>
+						<Button
+							variant="pushable"
+							onMouseEnter={() => setPopoverStatus(true)}
+						>
+							Pushable
+						</Button>
+					</PopoverTrigger>
+					<PopoverContent
+						side="bottom"
+						onMouseLeave={() => setPopoverStatus(false)}
+						onPointerDownOutside={() => setPopoverStatus(false)}
+						sideOffset={10}
+					>
+						Place content for the popover here.
+					</PopoverContent>
+				</Popover>
 				<ThemeToggleButton />
 			</NavigationMenu>
 		</>
