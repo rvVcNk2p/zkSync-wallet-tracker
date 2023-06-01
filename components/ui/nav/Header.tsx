@@ -7,18 +7,15 @@ import {
 	NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
 import { Moon, SunDim } from '@phosphor-icons/react'
+import { Chain, useAccountModal, useChainModal } from '@rainbow-me/rainbowkit'
 import { Button } from '@ui'
+import { cn, shortenerAddress } from '@utils'
 import { useTheme } from 'next-themes'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { useState } from 'react'
+import { useAccount, useNetwork } from 'wagmi'
 
 type NavItem = {
 	href: string
@@ -32,11 +29,15 @@ const navItems: NavItem[] = [
 ]
 
 const Header = (): JSX.Element => {
-	const [popoverStatus, setPopoverStatus] = useState(false)
+	const { openAccountModal } = useAccountModal()
+	const { openChainModal } = useChainModal()
+
+	const { address } = useAccount()
+	const { chain } = useNetwork()
 
 	return (
 		<>
-			<NavigationMenu className="mt-4 gap-2">
+			<NavigationMenu className="py-4 mb-2 gap-20 border-b-2 border-black dark:border-white">
 				<NavigationMenuList className="gap-2">
 					{navItems.map((item: NavItem) => (
 						<NavigationMenuItem key={item.href}>
@@ -49,25 +50,26 @@ const Header = (): JSX.Element => {
 					))}
 				</NavigationMenuList>
 
-				<Popover open={popoverStatus}>
-					<PopoverTrigger asChild>
-						<Button
-							variant="pushable"
-							onMouseEnter={() => setPopoverStatus(true)}
-						>
-							Pushable
-						</Button>
-					</PopoverTrigger>
-					<PopoverContent
-						side="bottom"
-						onMouseLeave={() => setPopoverStatus(false)}
-						onPointerDownOutside={() => setPopoverStatus(false)}
-						sideOffset={10}
+				<div className="flex gap-2">
+					<ThemeToggleButton />
+					<Button variant="pushable" size="equal" onClick={openChainModal}>
+						<Image
+							src={(chain as Chain)?.iconUrl as string}
+							width={28}
+							height={28}
+							className="border-2 rounded-full border-black dark:border-white"
+							alt="Picture of the active chain"
+						/>
+					</Button>
+					<Button
+						variant="pushable"
+						size="default"
+						onClick={openAccountModal}
+						className="min-h-full text-base"
 					>
-						Place content for the popover here.
-					</PopoverContent>
-				</Popover>
-				<ThemeToggleButton />
+						{address && shortenerAddress(address)}
+					</Button>
+				</div>
 			</NavigationMenu>
 		</>
 	)
@@ -103,12 +105,18 @@ const ThemeToggleButton = () => {
 	const { theme, setTheme } = useTheme()
 
 	return (
-		<button
+		<Button
+			variant="pushable"
+			size="equal"
+			className="min-h-full"
 			onClick={() => (theme == 'dark' ? setTheme('light') : setTheme('dark'))}
-			className="bg-gray-800 dark:bg-gray-50 hover:bg-gray-600 dark:hover:bg-gray-300 transition-all duration-100 text-white dark:text-gray-800 py-1 px-3 rounded-lg"
 		>
-			{theme === 'dark' ? <SunDim /> : <Moon />}
-		</button>
+			{theme === 'dark' ? (
+				<SunDim size={28} />
+			) : (
+				<Moon size={28} weight="fill" />
+			)}
+		</Button>
 	)
 }
 

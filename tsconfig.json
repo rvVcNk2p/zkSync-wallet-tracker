@@ -27,7 +27,8 @@
 			"@organisms": ["components/organisms/*", "components/organisms/"],
 			"@mutations": ["hooks/mutations/*", "hooks/mutations/"],
 			"@queries": ["hooks/queries/*", "hooks/queries/"],
-			"@hooks": ["hooks/*", "hooks/"]
+			"@hooks": ["hooks/*", "hooks/"],
+			"@utils": ["utils/*", "utils/"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
