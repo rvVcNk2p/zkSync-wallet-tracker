@@ -24,6 +24,7 @@
 			"@/*": ["./*"],
 			"@ui": ["components/ui/*", "components/ui/"],
 			"@atoms": ["components/atoms/*", "components/atoms/"],
+			"@molecules": ["components/molecules/*", "components/molecules/"],
 			"@organisms": ["components/organisms/*", "components/organisms/"],
 			"@mutations": ["hooks/mutations/*", "hooks/mutations/"],
 			"@queries": ["hooks/queries/*", "hooks/queries/"],

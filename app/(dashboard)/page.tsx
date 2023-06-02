@@ -1,7 +1,8 @@
 'use client'
 
 import { useToast } from '@hooks'
-import { Button } from '@ui'
+import { TokenDeployer } from '@molecules'
+import { Button, Label } from '@ui'
 
 export default function DashboardPage() {
 	const { toast } = useToast()
@@ -29,6 +30,9 @@ export default function DashboardPage() {
 						>
 							Destructive
 						</Button>
+					</div>
+					<div className="w-fit mt-10">
+						<TokenDeployer />
 					</div>
 				</div>
 			</div>

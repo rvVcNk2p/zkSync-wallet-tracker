@@ -4,13 +4,17 @@ import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { FC } from 'react'
 import { WagmiConfig, configureChains, createConfig } from 'wagmi'
-import { arbitrum, bsc, mainnet, polygon } from 'wagmi/chains'
+import { arbitrum, bsc, mainnet, polygon, sepolia } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[
 		{
 			...mainnet,
+			iconUrl: 'chains/ethereum.svg',
+		},
+		{
+			...sepolia,
 			iconUrl: 'chains/ethereum.svg',
 		},
 		{
