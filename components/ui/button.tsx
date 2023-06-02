@@ -5,22 +5,29 @@ import { cn } from '@utils'
 import { VariantProps, cva } from 'class-variance-authority'
 import * as React from 'react'
 
+// TODO: Use the primary colore instead of black
 const buttonVariants = cva(
-	'inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
+	[
+		'inline-flex items-center justify-center rounded-md text-sm font-medium transition-all',
+		'relative top-[-4px] left-[-4px] hover:top-0 hover:left-0 z-10 min-w-max',
+		'focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 ring-offset-background',
+		'disabled:opacity-50 disabled:pointer-events-none',
+	],
 	{
 		variants: {
 			variant: {
-				default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-				destructive:
-					'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-				pushable:
-					'relative bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white top-[-4px] left-[-4px] hover:top-0 hover:left-0 z-10 focus-visible:ring-0 focus-visible:ring-offset-0 min-w-max',
+				default:
+					'bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white',
+				destructive: [
+					'bg-destructive text-destructive-foreground hover:bg-destructive',
+				],
 				outline:
-					'border border-input hover:bg-accent hover:text-accent-foreground',
-				secondary:
-					'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-				ghost: 'hover:bg-accent hover:text-accent-foreground',
-				link: 'underline-offset-4 hover:underline text-primary',
+					'bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white',
+				social: [
+					'bg-black text-white border-2 border-black',
+					'dark:bg-white dark:text-black dark:border-white',
+					'hover:!bg-destructive hover:!text-destructive-foreground hover:!border-destructive',
+				],
 			},
 			size: {
 				equal: 'p-2',
@@ -35,7 +42,21 @@ const buttonVariants = cva(
 		},
 	},
 )
-
+const buttonBackdropVariants = cva(
+	[
+		'absolute h-full w-full bg-black dark:bg-white border-2 border-black rounded-md top-0 left-0',
+	],
+	{
+		variants: {
+			variant: {
+				default: 'dark:border-white',
+				destructive: 'bg-white dark:bg-transparent dark:border-white',
+				outline: 'bg-white dark:bg-transparent dark:border-white',
+				social: 'bg-white dark:bg-transparent dark:border-white',
+			},
+		},
+	},
+)
 export interface ButtonProps
 	extends React.ButtonHTMLAttributes<HTMLButtonElement>,
 		VariantProps<typeof buttonVariants> {
@@ -53,9 +74,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 					ref={ref}
 					{...props}
 				/>
-				{variant === 'pushable' && (
-					<span className="absolute h-full w-full bg-black dark:bg-white border-2 border-black rounded-md top-0 left-0" />
-				)}
+				<span className={cn(buttonBackdropVariants({ variant }))} />
 			</div>
 		)
 	},

@@ -54,7 +54,7 @@ const Header = (): JSX.Element => {
 
 				<div className="flex gap-2">
 					<ThemeToggleButton />
-					<Button variant="pushable" size="equal" onClick={openChainModal}>
+					<Button size="equal" onClick={openChainModal}>
 						<Image
 							src={(chain as Chain)?.iconUrl as string}
 							width={28}
@@ -64,7 +64,6 @@ const Header = (): JSX.Element => {
 						/>
 					</Button>
 					<Button
-						variant="pushable"
 						size="default"
 						onClick={openAccountModal}
 						className="min-h-full text-base"
@@ -108,7 +107,6 @@ const ThemeToggleButton = () => {
 
 	return (
 		<Button
-			variant="pushable"
 			size="equal"
 			className="min-h-full"
 			onClick={() => (theme == 'dark' ? setTheme('light') : setTheme('dark'))}

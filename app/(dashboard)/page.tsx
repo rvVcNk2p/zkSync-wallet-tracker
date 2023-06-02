@@ -17,11 +17,11 @@ export default function DashboardPage() {
 		<div className="p-2">
 			<div className="grid grid-cols-1">
 				<div className="blog-list__container">
-					<h1 className="mb-4">Dashboard</h1>
+					<h1 className="mb-4">Buttons</h1>
 
 					<div className="flex gap-4">
-						<Button onClick={() => hadleToast()}>Button</Button>
-						<Button variant="secondary">Secondary</Button>
+						<Button onClick={() => hadleToast()}>Default Button</Button>
+						<Button variant="social">Social</Button>
 						<Button variant="outline">Outline</Button>
 						<Button
 							variant="destructive"
@@ -29,7 +29,6 @@ export default function DashboardPage() {
 						>
 							Destructive
 						</Button>
-						<Button variant="pushable">Pushable</Button>
 					</div>
 				</div>
 			</div>
