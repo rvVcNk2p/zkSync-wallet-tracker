@@ -12,7 +12,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
 	return (
 		<WalletAuthenticationWrapper>
 			<Header />
-			<PageLayout>{children}z</PageLayout>
+			<PageLayout>{children}</PageLayout>
 		</WalletAuthenticationWrapper>
 	)
 }

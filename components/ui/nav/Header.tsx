@@ -7,7 +7,7 @@ import {
 	NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
-import { Moon, SunDim } from '@phosphor-icons/react'
+import { FinnTheHuman, Moon, SunDim } from '@phosphor-icons/react'
 import { Chain, useAccountModal, useChainModal } from '@rainbow-me/rainbowkit'
 import { Button } from '@ui'
 import { cn, shortenerAddress } from '@utils'
@@ -37,8 +37,10 @@ const Header = (): JSX.Element => {
 
 	return (
 		<>
-			<NavigationMenu className="py-4 mb-2 gap-20 border-b-2 border-black dark:border-white">
-				<NavigationMenuList className="gap-2">
+			<NavigationMenu className="flex justify-between py-4 px-8 mb-2 gap-20 border-b-2 border-black dark:border-white">
+				<FinnTheHuman size={48} weight="fill" className="min-w-fit" />
+
+				<NavigationMenuList className="gap-2 fixed lg:static bottom-2 left-[50%] transform translate-x-[-50%] translate-y-[-50%] lg:translate-x-0 lg:translate-y-0">
 					{navItems.map((item: NavItem) => (
 						<NavigationMenuItem key={item.href}>
 							<Link href={item.href} legacyBehavior passHref>
