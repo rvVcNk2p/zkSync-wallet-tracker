@@ -37,7 +37,7 @@ const Header = (): JSX.Element => {
 
 	return (
 		<>
-			<NavigationMenu className="flex justify-between py-4 px-8 mb-2 gap-20 border-b-2 border-black dark:border-white">
+			<NavigationMenu className="flex justify-between py-4 px-8 mb-2 gap-20 border-b border-black dark:border-white">
 				<FinnTheHuman size={48} weight="fill" className="min-w-fit" />
 
 				<NavigationMenuList className="gap-2 fixed lg:static bottom-2 left-[50%] transform translate-x-[-50%] translate-y-[-50%] lg:translate-x-0 lg:translate-y-0">
@@ -54,20 +54,16 @@ const Header = (): JSX.Element => {
 
 				<div className="flex gap-2">
 					<ThemeToggleButton />
-					<Button size="equal" onClick={openChainModal}>
+					<Button className="p-2" onClick={openChainModal}>
 						<Image
 							src={(chain as Chain)?.iconUrl as string}
 							width={28}
 							height={28}
-							className="border-2 rounded-full border-black dark:border-white"
+							className="border-2 rounded-full border-primary dark:border-secondary"
 							alt="Picture of the active chain"
 						/>
 					</Button>
-					<Button
-						size="default"
-						onClick={openAccountModal}
-						className="min-h-full text-base"
-					>
+					<Button onClick={openAccountModal} className="min-h-full text-base">
 						{address && shortenerAddress(address)}
 					</Button>
 				</div>
@@ -107,14 +103,13 @@ const ThemeToggleButton = () => {
 
 	return (
 		<Button
-			size="equal"
-			className="min-h-full"
+			className="min-h-full p-2"
 			onClick={() => (theme == 'dark' ? setTheme('light') : setTheme('dark'))}
 		>
 			{theme === 'dark' ? (
-				<SunDim size={28} />
+				<SunDim size={20} />
 			) : (
-				<Moon size={28} weight="fill" />
+				<Moon size={20} weight="fill" />
 			)}
 		</Button>
 	)

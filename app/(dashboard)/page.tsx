@@ -22,7 +22,6 @@ export default function DashboardPage() {
 
 					<div className="flex gap-4">
 						<Button onClick={() => hadleToast()}>Default Button</Button>
-						<Button variant="social">Social</Button>
 						<Button variant="outline">Outline</Button>
 						<Button
 							variant="destructive"
