@@ -35,7 +35,7 @@ const Header = (): JSX.Element => {
 
 	return (
 		<>
-			<NavigationMenu className="flex justify-between py-4 px-8 mb-2 gap-20 border-b border-black dark:border-white">
+			<NavigationMenu className="flex justify-between py-4 px-8 mb-2 gap-20 border-b">
 				<Hammer size={48} weight="fill" className="min-w-fit" />
 
 				<NavigationMenuList className="gap-2 fixed lg:static bottom-2 left-[50%] transform translate-x-[-50%] translate-y-[-50%] lg:translate-x-0 lg:translate-y-0">

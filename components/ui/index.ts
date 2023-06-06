@@ -7,6 +7,7 @@ export * from './label'
 export * from './toaster'
 export * from './card'
 export * from './slider'
+export * from './form'
 
 // toast.tsx
 // navigation-menu.tsx

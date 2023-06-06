@@ -2,7 +2,6 @@
 
 import { useToast } from '@hooks'
 import { TokenDeployer } from '@molecules'
-import { Button, Label } from '@ui'
 
 export default function DashboardPage() {
 	const { toast } = useToast()
@@ -14,11 +13,12 @@ export default function DashboardPage() {
 			variant,
 		})
 	}
+
 	return (
 		<div className="p-2">
 			<div className="grid grid-cols-1">
 				<div className="blog-list__container">
-					<div className="w-fit mt-10 mx-auto">
+					<div className="w-fit mt-6 mx-auto">
 						<TokenDeployer />
 					</div>
 				</div>

@@ -1,24 +1,40 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Spinner } from '@phosphor-icons/react'
 import {
 	Button,
+	Card,
 	CardContent,
 	CardDescription,
 	CardFooter,
 	CardHeader,
 	CardTitle,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
 	Input,
 	Label,
-	Slider,
 } from '@ui'
-import { Card } from '@ui'
 import { erc20Contract } from '@utils'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { encodeFunctionData } from 'viem'
 import {
 	useAccount,
 	useNetwork,
 	useWaitForTransaction,
 	useWalletClient,
 } from 'wagmi'
+import * as z from 'zod'
+
+// Validation schema
+const tokenDeployerFormSchema = z.object({
+	tokenName: z.string().min(2).max(50),
+	symbol: z.string().min(2).max(50),
+	initialSupply: z.coerce.number().min(1),
+})
 
 const TokenDeployer = (): JSX.Element => {
 	const [transactionHash, setTransactionHash] = useState<
@@ -36,12 +52,16 @@ const TokenDeployer = (): JSX.Element => {
 	})
 	const { address, isConnected } = useAccount()
 
-	const hadleDeployContract = async () => {
+	const hadleDeployContract = async (
+		formValues: z.infer<typeof tokenDeployerFormSchema>,
+	) => {
+		const { tokenName, symbol, initialSupply } = formValues
 		if (!isConnected) return
 
 		const hash = await walletClient?.deployContract({
 			chain,
 			...erc20Contract,
+			args: [tokenName, symbol, initialSupply],
 			address,
 		})
 
@@ -54,6 +74,19 @@ const TokenDeployer = (): JSX.Element => {
 		transaction && console.log(transaction)
 	}, [transaction])
 
+	const form = useForm<z.infer<typeof tokenDeployerFormSchema>>({
+		resolver: zodResolver(tokenDeployerFormSchema),
+		defaultValues: {
+			tokenName: '',
+			symbol: '',
+			initialSupply: 21_000_000,
+		},
+	})
+
+	function onSubmit(formValues: z.infer<typeof tokenDeployerFormSchema>) {
+		hadleDeployContract(formValues)
+	}
+
 	return (
 		<>
 			<Card>
@@ -64,55 +97,66 @@ const TokenDeployer = (): JSX.Element => {
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="grid gap-4">
-					{/* <div className="relative">
-						<div className="absolute inset-0 flex items-center">
-							<span className="w-full border-t" />
-						</div>
-						<div className="relative flex justify-center text-xs uppercase">
-							<span className="bg-background px-2 text-muted-foreground">
-								Or continue with
-							</span>
-						</div>
-					</div> */}
-					<div className="grid gap-2">
-						<Label htmlFor="token-name">Token name</Label>
-						<Input id="token-name" type="text" placeholder="e.g. Bitcoin" />
-					</div>
-					<div className="grid gap-2">
-						<Label htmlFor="token-symbol">Symbol</Label>
-						<Input id="token-symbol" type="text" placeholder="e.g. BTC" />
-					</div>
-					<div className="grid gap-2">
-						<Label htmlFor="initial-supply">Initial Supply</Label>
-						<Input
-							id="initial-supply"
-							type="number"
-							defaultValue={21_000_000}
-						/>
-					</div>
-					<div className="grid gap-2">
-						<Label htmlFor="initial-supply">Decimals(1-18)</Label>
-						<Slider defaultValue={[18]} max={18} min={1} step={1} />
-					</div>
-				</CardContent>
-				<CardFooter>
-					<Button
-						className="w-full"
-						onClick={hadleDeployContract}
-						disabled={isTransactionLoading}
-					>
-						{isTransactionLoading ? (
-							<Label className="flex items-center">
-								<Spinner size={14} className="animate-spin mr-1" />
-								Processing…
-							</Label>
-						) : (
-							<Label className="cursor-pointer">Deploy</Label>
-						)}
-					</Button>
+					<Form {...form}>
+						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+							<FormField
+								control={form.control}
+								name="tokenName"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Token Name</FormLabel>
+										<FormControl>
+											<Input placeholder="e.g. Bitcoin" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="symbol"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Symbol</FormLabel>
+										<FormControl>
+											<Input placeholder="e.g. BTC" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="initialSupply"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Initial Supply</FormLabel>
+										<FormControl>
+											<Input type="number" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<Button
+								type="submit"
+								className="w-full !mt-10"
+								disabled={isTransactionLoading}
+							>
+								{isTransactionLoading ? (
+									<Label className="flex items-center">
+										<Spinner size={14} className="animate-spin mr-1" />
+										Processing…
+									</Label>
+								) : (
+									<Label className="cursor-pointer">Deploy</Label>
+								)}
+							</Button>
 
-					{isTransactionError && <div>Transaction error</div>}
-				</CardFooter>
+							{isTransactionError && <div>Transaction error</div>}
+						</form>
+					</Form>
+				</CardContent>
 			</Card>
 		</>
 	)
