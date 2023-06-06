@@ -1,10 +1,12 @@
 export * from './layout'
 export * from './nav'
 
-export { Button } from './button'
-export { Input } from './input'
-export { Label } from './label'
-export { Toaster } from './toaster'
+export * from './button'
+export * from './input'
+export * from './label'
+export * from './toaster'
+export * from './card'
+export * from './slider'
 
 // toast.tsx
 // navigation-menu.tsx
