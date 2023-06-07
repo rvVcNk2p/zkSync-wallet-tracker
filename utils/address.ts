@@ -1,3 +1,7 @@
-export const shortenerAddress = (address: string) => {
-	return address.slice(0, 4) + '...' + address.slice(-4)
+export const shortenerAddress = (
+	address: string,
+	prefix: number = 4,
+	sufix: number = 4,
+) => {
+	return address.slice(0, prefix) + '...' + address.slice(-sufix)
 }

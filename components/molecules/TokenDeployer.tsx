@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useToast } from '@hooks'
 import { Spinner } from '@phosphor-icons/react'
 import {
 	Button,
@@ -17,10 +18,11 @@ import {
 	Input,
 	Label,
 } from '@ui'
-import { erc20Contract } from '@utils'
+import { erc20Contract, shortenerAddress } from '@utils'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { encodeFunctionData } from 'viem'
+import { BaseError } from 'viem'
 import {
 	useAccount,
 	useNetwork,
@@ -40,17 +42,55 @@ const TokenDeployer = (): JSX.Element => {
 	const [transactionHash, setTransactionHash] = useState<
 		`0x${string}` | undefined
 	>(undefined)
-	const { data: walletClient, isError, isLoading } = useWalletClient()
+	const { data: walletClient } = useWalletClient()
 	const { chain } = useNetwork()
-	const {
-		data: transaction,
-		isError: isTransactionError,
-		isLoading: isTransactionLoading,
-	} = useWaitForTransaction({
-		chainId: chain?.id,
-		hash: transactionHash,
-	})
+	const { data: transaction, isLoading: isTransactionLoading } =
+		useWaitForTransaction({
+			chainId: chain?.id,
+			hash: transactionHash,
+			onSuccess(data) {
+				const { contractAddress } = data
+				toast({
+					duration: 60000,
+					title: `🎉 Your token is now live and ready!`,
+					description: (
+						<div className="flex flex-col gap-1 mt-4">
+							<Label>
+								Contract:
+								<Link
+									target="_blank"
+									href={`https://sepolia.etherscan.io/address/${contractAddress}`}
+									className="ml-2 hover:underline"
+								>
+									{shortenerAddress(contractAddress as string, 5, 12)}
+								</Link>
+							</Label>
+							<Label>
+								Token:
+								<Link
+									target="_blank"
+									href={`https://sepolia.etherscan.io/token/${contractAddress}`}
+									className="ml-2 hover:underline"
+								>
+									{`${form.getValues().tokenName} (${form.getValues().symbol})`}
+								</Link>
+							</Label>
+						</div>
+					),
+				})
+			},
+			onError(error) {
+				if (error instanceof BaseError) {
+					toast({
+						variant: 'destructive',
+						title: error.shortMessage,
+						description: error.details,
+					})
+				}
+			},
+		})
 	const { address, isConnected } = useAccount()
+	const { toast } = useToast()
 
 	const hadleDeployContract = async (
 		formValues: z.infer<typeof tokenDeployerFormSchema>,
@@ -58,21 +98,33 @@ const TokenDeployer = (): JSX.Element => {
 		const { tokenName, symbol, initialSupply } = formValues
 		if (!isConnected) return
 
-		const hash = await walletClient?.deployContract({
-			chain,
-			...erc20Contract,
-			args: [tokenName, symbol, initialSupply],
-			address,
-		})
+		try {
+			const hash = await walletClient?.deployContract({
+				chain,
+				...erc20Contract,
+				args: [tokenName, symbol, initialSupply],
+				//@ts-ignore
+				address,
+			})
 
-		setTransactionHash(hash)
+			setTransactionHash(hash)
+			console.log(`https://sepolia.etherscan.io/tx/%s`, hash)
 
-		console.log(`https://sepolia.etherscan.io/tx/%s`, hash)
+			toast({
+				title: '✅ Token deployment initiated and sent!',
+				description:
+					'Blockchain validating the request.\nPlease wait a few seconds.',
+			})
+		} catch (error) {
+			if (error instanceof BaseError) {
+				toast({
+					variant: 'destructive',
+					title: error.shortMessage,
+					description: error.details,
+				})
+			}
+		}
 	}
-
-	useEffect(() => {
-		transaction && console.log(transaction)
-	}, [transaction])
 
 	const form = useForm<z.infer<typeof tokenDeployerFormSchema>>({
 		resolver: zodResolver(tokenDeployerFormSchema),
@@ -106,7 +158,11 @@ const TokenDeployer = (): JSX.Element => {
 									<FormItem>
 										<FormLabel>Token Name</FormLabel>
 										<FormControl>
-											<Input placeholder="e.g. Bitcoin" {...field} />
+											<Input
+												placeholder="e.g. Bitcoin"
+												{...field}
+												disabled={isTransactionLoading}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -119,7 +175,11 @@ const TokenDeployer = (): JSX.Element => {
 									<FormItem>
 										<FormLabel>Symbol</FormLabel>
 										<FormControl>
-											<Input placeholder="e.g. BTC" {...field} />
+											<Input
+												placeholder="e.g. BTC"
+												{...field}
+												disabled={isTransactionLoading}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -132,7 +192,11 @@ const TokenDeployer = (): JSX.Element => {
 									<FormItem>
 										<FormLabel>Initial Supply</FormLabel>
 										<FormControl>
-											<Input type="number" {...field} />
+											<Input
+												type="number"
+												{...field}
+												disabled={isTransactionLoading}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -152,11 +216,10 @@ const TokenDeployer = (): JSX.Element => {
 									<Label className="cursor-pointer">Deploy</Label>
 								)}
 							</Button>
-
-							{isTransactionError && <div>Transaction error</div>}
 						</form>
 					</Form>
 				</CardContent>
+				<CardFooter></CardFooter>
 			</Card>
 		</>
 	)
