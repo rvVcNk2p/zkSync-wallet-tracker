@@ -20,7 +20,7 @@ import {
 } from '@ui'
 import { erc20Contract, shortenerAddress } from '@utils'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BaseError } from 'viem'
 import {

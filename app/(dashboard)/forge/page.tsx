@@ -3,7 +3,7 @@
 import { useToast } from '@hooks'
 import { TokenDeployer } from '@molecules'
 
-export default function DashboardPage() {
+export default function ForgePage() {
 	const { toast } = useToast()
 	const hadleToast = (variant?: 'default' | 'destructive') => {
 		toast({

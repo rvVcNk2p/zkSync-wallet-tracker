@@ -22,8 +22,8 @@ type NavItem = {
 	label: string
 }
 const navItems: NavItem[] = [
-	{ href: '/', label: 'Forge' },
 	{ href: '/dashboard', label: 'Dashboard' },
+	{ href: '/forge', label: 'Forge' },
 ]
 
 const Header = (): JSX.Element => {
