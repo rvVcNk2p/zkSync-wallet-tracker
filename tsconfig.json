@@ -29,6 +29,7 @@
 			"@mutations": ["hooks/mutations/*", "hooks/mutations/"],
 			"@queries": ["hooks/queries/*", "hooks/queries/"],
 			"@hooks": ["hooks/*", "hooks/"],
+			"@types": ["types/*", "types/"],
 			"@stores": ["stores/*", "stores/"],
 			"@utils": ["utils/*", "utils/"]
 		}

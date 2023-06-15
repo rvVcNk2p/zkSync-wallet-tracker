@@ -2,9 +2,11 @@
 
 import { Button, Card, Input, Label } from '@/components/ui'
 import { useToast } from '@hooks'
+import { useGetTransactionData } from '@hooks'
 import { Trash } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
-import { useEffect, useState } from 'react'
+import moment from 'moment'
+import { useState } from 'react'
 
 export default function DashboardPage() {
 	const { toast } = useToast()
@@ -49,6 +51,9 @@ export default function DashboardPage() {
 		})
 	}
 
+	const { transactionsData, isLoading, isError, isValidating } =
+		useGetTransactionData()
+
 	return (
 		<div className="p-2">
 			<div className="grid grid-cols-1">
@@ -86,6 +91,37 @@ export default function DashboardPage() {
 							))}
 						</Card>
 					</div>
+				</div>
+				<div>
+					<Card className="p-4">
+						<h1 className="underline">Transactions Data</h1>
+						{isLoading && <div>Loading...</div>}
+						{isError && <div>Error!</div>}
+						{isValidating && <div>Validating...</div>}
+						{transactionsData.transactionCount ? (
+							<div className="mt-2">
+								<div>
+									Transaction Volume (USD):{' '}
+									{transactionsData.transactionVolumeInUSD}
+								</div>
+								<div>Gas Cost (USD): {transactionsData.gasFeeCostInUSD}</div>
+								{/* <div>Bridged Value (USD): In progress...</div> */}
+								<hr className="my-2" />
+								<div>
+									Transaction Count: {transactionsData.transactionCount}
+								</div>
+								<div>
+									Last Transaction:{' '}
+									{moment(transactionsData?.lastTransaction?.receivedAt)
+										.startOf('minute')
+										.fromNow()}
+								</div>
+								<div>Active day(s): {transactionsData.activeDays}</div>
+								<div>Active week(s): {transactionsData.activeWeeks}</div>
+								<div>Active month(s): {transactionsData.activeMonths}</div>
+							</div>
+						) : null}
+					</Card>
 				</div>
 			</div>
 		</div>
