@@ -54,3 +54,18 @@ export interface TransactionResponse {
 	list: Transaction[]
 	total: number
 }
+
+export interface TokenBalance {
+	balance: string
+	contractAddress: string
+	decimals: string
+	name: string
+	symbol: string
+	type: string
+}
+
+export interface TokenBalanceResponse {
+	message: string
+	result: TokenBalance[]
+	status: string
+}

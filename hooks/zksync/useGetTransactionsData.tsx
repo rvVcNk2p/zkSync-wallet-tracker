@@ -1,4 +1,5 @@
 import { defaultFetcher } from '@hooks'
+import { TransactionResponse } from '@types'
 import { Transaction } from '@types'
 import { hexToBn } from '@utils'
 import moment from 'moment'
@@ -80,12 +81,12 @@ const calculateActivity = (transactions: Transaction[] = []) => {
 const TRANSACTIONS_URL =
 	'https://zksync2-mainnet-explorer.zksync.io/transactions?limit=100&direction=older&accountAddress='
 
-export const useGetTransactionData = () => {
+export const useGetTransactionsData = () => {
 	const { address } = useAccount()
 
 	const { data, error, isLoading, isValidating } = useSWR(
 		address ? TRANSACTIONS_URL + address : null,
-		defaultFetcher,
+		defaultFetcher<TransactionResponse>,
 	)
 
 	const {

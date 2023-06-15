@@ -1,11 +1,10 @@
 'use client'
 
 import { Button, Card, Input, Label } from '@/components/ui'
-import { useBalances, useToast, useZkSyncBalances } from '@hooks'
-import { useGetTransactionData } from '@hooks'
+import { useToast, useZkSyncBalances } from '@hooks'
+import { useGetTransactionsData } from '@hooks'
 import { Trash } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
-import { ChainIds } from '@utils'
 import moment from 'moment'
 import { useState } from 'react'
 
@@ -53,13 +52,16 @@ export default function DashboardPage() {
 	}
 
 	const { transactionsData, isLoading, error, isValidating } =
-		useGetTransactionData()
+		useGetTransactionsData()
+
+	const trackedTokens = ['ETH', 'WETH', 'USDC']
 
 	const {
-		data,
+		data: balances,
 		error: balancesError,
 		isLoading: isBalancesLoading,
-	} = useZkSyncBalances(trackedAddresses[0], ['WETH'])
+		isValidating: isBalancesValidating,
+	} = useZkSyncBalances(trackedAddresses[0], trackedTokens)
 
 	return (
 		<div className="p-2">
@@ -108,10 +110,10 @@ export default function DashboardPage() {
 						{transactionsData.transactionCount ? (
 							<div className="mt-2">
 								<div>
-									Transaction Volume (USD):{' '}
+									Transaction Volume (USD):{' $'}
 									{transactionsData.transactionVolumeInUSD}
 								</div>
-								<div>Gas Cost (USD): {transactionsData.gasFeeCostInUSD}</div>
+								<div>Gas Cost (USD): ${transactionsData.gasFeeCostInUSD}</div>
 								{/* <div>Bridged Value (USD): In progress...</div> */}
 								<hr className="my-2" />
 								<div>
@@ -132,10 +134,13 @@ export default function DashboardPage() {
 					<Card className="p-4 mt-6">
 						<h1 className="underline"> Balance </h1>
 						{isBalancesLoading && <div>Loading...</div>}
+						{isBalancesValidating && <div>Validating...</div>}
 						{balancesError && <div>Error!</div>}
-						{data ? (
+						{balances ? (
 							<div className="mt-2">
-								{/* <div>Balance: {JSON.stringify(data)}</div> */}
+								<div>ETH: {balances['ETH']}</div>
+								<div>WETH: {balances['WETH']}</div>
+								<div>USDC: {balances['USDC']}</div>
 							</div>
 						) : null}
 					</Card>

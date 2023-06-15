@@ -1,2 +1,2 @@
-export { useGetTransactionData } from './useGetTransactionData'
+export { useGetTransactionsData } from './useGetTransactionsData'
 export { useZkSyncBalances } from './useZkSyncBalances'
