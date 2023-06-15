@@ -4,6 +4,7 @@ import { Fetcher } from 'swr'
 export * from './ui'
 export * from './zksync'
 
+export { useBalances } from './useBalances'
 export { useIsMounted } from './useIsMounted'
 
 export const defaultFetcher: Fetcher<TransactionResponse> = (...args: any[]) =>

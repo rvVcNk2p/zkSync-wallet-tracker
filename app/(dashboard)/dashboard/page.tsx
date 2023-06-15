@@ -1,10 +1,11 @@
 'use client'
 
 import { Button, Card, Input, Label } from '@/components/ui'
-import { useToast } from '@hooks'
+import { useBalances, useToast, useZkSyncBalances } from '@hooks'
 import { useGetTransactionData } from '@hooks'
 import { Trash } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
+import { ChainIds } from '@utils'
 import moment from 'moment'
 import { useState } from 'react'
 
@@ -51,8 +52,14 @@ export default function DashboardPage() {
 		})
 	}
 
-	const { transactionsData, isLoading, isError, isValidating } =
+	const { transactionsData, isLoading, error, isValidating } =
 		useGetTransactionData()
+
+	const {
+		data,
+		error: balancesError,
+		isLoading: isBalancesLoading,
+	} = useZkSyncBalances(trackedAddresses[0], ['WETH'])
 
 	return (
 		<div className="p-2">
@@ -93,10 +100,10 @@ export default function DashboardPage() {
 					</div>
 				</div>
 				<div>
-					<Card className="p-4">
+					<Card className="p-4 mt-6">
 						<h1 className="underline">Transactions Data</h1>
 						{isLoading && <div>Loading...</div>}
-						{isError && <div>Error!</div>}
+						{error && <div>Error!</div>}
 						{isValidating && <div>Validating...</div>}
 						{transactionsData.transactionCount ? (
 							<div className="mt-2">
@@ -119,6 +126,16 @@ export default function DashboardPage() {
 								<div>Active day(s): {transactionsData.activeDays}</div>
 								<div>Active week(s): {transactionsData.activeWeeks}</div>
 								<div>Active month(s): {transactionsData.activeMonths}</div>
+							</div>
+						) : null}
+					</Card>
+					<Card className="p-4 mt-6">
+						<h1 className="underline"> Balance </h1>
+						{isBalancesLoading && <div>Loading...</div>}
+						{balancesError && <div>Error!</div>}
+						{data ? (
+							<div className="mt-2">
+								{/* <div>Balance: {JSON.stringify(data)}</div> */}
 							</div>
 						) : null}
 					</Card>

@@ -110,8 +110,8 @@ export const useGetTransactionData = () => {
 
 	return {
 		transactionsData,
+		error,
 		isLoading,
 		isValidating,
-		isError: error,
 	}
 }

@@ -1,10 +1,11 @@
+import { Address } from 'viem'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 interface TrackedAddressesStore {
-	trackedAddresses: string[]
-	addTrackedAddress: (address: string) => void
-	removeTrackedAddress: (address: string) => void
+	trackedAddresses: Address[]
+	addTrackedAddress: (address: Address) => void
+	removeTrackedAddress: (address: Address) => void
 	clearTrackedAddresses: () => void
 }
 
@@ -13,7 +14,7 @@ export const useTrackedAddressesStore = create<TrackedAddressesStore>()(
 		persist(
 			(set, get) => ({
 				trackedAddresses: [],
-				addTrackedAddress: (address: string) => {
+				addTrackedAddress: (address: Address) => {
 					const trackedAddresses =
 						get().trackedAddresses.indexOf(address) === -1
 							? [...get().trackedAddresses, address]
@@ -27,7 +28,7 @@ export const useTrackedAddressesStore = create<TrackedAddressesStore>()(
 						'addTrackedAddress',
 					)
 				},
-				removeTrackedAddress: (_address: string) =>
+				removeTrackedAddress: (_address: Address) =>
 					set(
 						(state) => ({
 							trackedAddresses: state.trackedAddresses.filter(
