@@ -5,7 +5,7 @@ import { hexToBn } from '@utils'
 import moment from 'moment'
 import useSWR from 'swr'
 import { formatUnits } from 'viem'
-import { useAccount } from 'wagmi'
+import { Address } from 'wagmi'
 
 const calculateActivity = (transactions: Transaction[] = []) => {
 	const activeDays: Set<string> = new Set<string>()
@@ -81,9 +81,7 @@ const calculateActivity = (transactions: Transaction[] = []) => {
 const TRANSACTIONS_URL =
 	'https://zksync2-mainnet-explorer.zksync.io/transactions?limit=100&direction=older&accountAddress='
 
-export const useGetTransactionsData = () => {
-	const { address } = useAccount()
-
+export const useGetTransactionsData = (address: Address) => {
 	const { data, error, isLoading, isValidating } = useSWR(
 		address ? TRANSACTIONS_URL + address : null,
 		defaultFetcher<TransactionResponse>,

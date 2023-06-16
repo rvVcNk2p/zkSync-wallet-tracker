@@ -9,7 +9,6 @@ interface TokenAddresses {
 
 export const tokenAddresses: TokenAddresses = {
 	[ChainIds.ZK_SYNC_ERA_MAINNET]: {
-		ETH: '0x0000000000000000000000000000000000000000',
 		WETH: '0x5aea5775959fbc2557cc8789bc1bf90a239d9a91',
 		USDC: '0x3355df6d4c9c3035724fd0e3914de96a5a83aaf4',
 	},

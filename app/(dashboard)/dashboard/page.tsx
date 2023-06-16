@@ -52,15 +52,15 @@ export default function DashboardPage() {
 	}
 
 	const { transactionsData, isLoading, error, isValidating } =
-		useGetTransactionsData()
+		useGetTransactionsData(trackedAddresses[0])
 
 	const trackedTokens = ['ETH', 'WETH', 'USDC']
 
 	const {
-		data: balances,
+		balances,
 		error: balancesError,
-		isLoading: isBalancesLoading,
 		isValidating: isBalancesValidating,
+		isLoading: isBalancesLoading,
 	} = useZkSyncBalances(trackedAddresses[0], trackedTokens)
 
 	return (

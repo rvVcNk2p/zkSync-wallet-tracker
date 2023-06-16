@@ -1,7 +1,6 @@
 export * from './ui'
 export * from './zksync'
 
-export { useBalances } from './useBalances'
 export { useIsMounted } from './useIsMounted'
 
 export const defaultFetcher = <T>(...args: any[]): Promise<T> =>
