@@ -3,11 +3,14 @@
 import {
 	useGetMultiOnChainBalances,
 	useGetMultipleTransactionsData,
+	usePrevious,
 } from '@hooks'
+import { AddNewAddressModal } from '@molecules'
+import { ArrowsClockwise, Plus } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
-import { DataTable } from '@ui'
+import { Button, DataTable, Label } from '@ui'
 import { ChainIds, transformResultArrayToObject } from '@utils'
-import { useEffect } from 'react'
+import { use, useEffect, useState } from 'react'
 
 import { columns } from './ZkSyncColumns'
 
@@ -30,6 +33,7 @@ export default function ZkSyncTable() {
 		error: multipleBalancesError,
 		isLoading: multipleBalancesLoading,
 		isValidating: multipleBalancesValidating,
+		setShouldFetch: setShouldFetchBalances,
 	} = useGetMultiOnChainBalances(
 		getTrackedAddresses(),
 		ChainIds.ZK_SYNC_ERA_MAINNET,
@@ -41,6 +45,7 @@ export default function ZkSyncTable() {
 		error: multipleTransactionsError,
 		isLoading: multipleTransactionsLoading,
 		isValidating: multipleTransactionsValidating,
+		setShouldFetch: setShouldFetchTransactions,
 	} = useGetMultipleTransactionsData(getTrackedAddresses())
 
 	useEffect(() => {
@@ -55,11 +60,12 @@ export default function ZkSyncTable() {
 						(balance: any) => balance.address === addressData.address,
 					)
 
-					return transactionData && balance
+					return transactionData
 						? {
 								...addressData,
 								...transactionData.data,
 								...transformResultArrayToObject(balance.data),
+								bridgedValueInUSD: 0,
 						  }
 						: { ...addressData }
 				}),
@@ -68,21 +74,66 @@ export default function ZkSyncTable() {
 	}, [multipleTransactionsData, multipleBalances])
 
 	const isLoding =
-		multipleBalancesLoading ||
 		multipleTransactionsLoading ||
+		multipleTransactionsValidating ||
 		multipleBalancesValidating ||
-		multipleTransactionsValidating
+		multipleBalancesLoading
+
+	const [isRefreshAvailable, setIsRefreshAvailable] = useState(true)
+
+	const handleFetchTrigger = () => {
+		setIsRefreshAvailable(false)
+
+		setShouldFetchTransactions(true)
+		setShouldFetchBalances(true)
+
+		setTimeout(() => {
+			setIsRefreshAvailable(true)
+		}, 5000)
+	}
+
+	const prevTrackedAddresse = usePrevious<`0x${string}`[]>(
+		getTrackedAddresses(),
+	)
+
+	useEffect(() => {
+		if (
+			prevTrackedAddresse &&
+			getTrackedAddresses().length > prevTrackedAddresse?.length
+		) {
+			handleFetchTrigger()
+		}
+	}, [getTrackedAddresses()])
 
 	return (
-		<div
-			className="mx-auto py-10"
-			style={{ maxWidth: '-webkit-fill-available' }}
-		>
-			<DataTable
-				columns={columns}
-				data={trackedAddresses}
-				isLoading={isLoding}
-			/>
+		<div className="flex flex-col items-end py-10 gap-4">
+			<div className="flex gap-4">
+				<AddNewAddressModal>
+					<Button className="w-fit">
+						<Plus className="mr-2" />
+						Add new address
+					</Button>
+				</AddNewAddressModal>
+				<Button
+					className="w-fit"
+					disabled={isLoding || !isRefreshAvailable}
+					onClick={handleFetchTrigger}
+				>
+					<ArrowsClockwise className="mr-2" />
+					{isRefreshAvailable ? 'Refresh' : 'Wait 5 seconds to refresh'}
+				</Button>
+			</div>
+			<div className="mx-auto" style={{ maxWidth: '-webkit-fill-available' }}>
+				<DataTable
+					columns={columns}
+					data={trackedAddresses}
+					isLoading={isLoding}
+				/>
+			</div>
+			<Label className="text-xs italic">
+				*Refresh does not happen automatically; you need to click the
+				&apos;Refresh&apos; button.
+			</Label>
 		</div>
 	)
 }

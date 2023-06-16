@@ -8,7 +8,7 @@ const generateFallbackData = (address: `0x${string}`) => {
 		ETH: 0,
 		WETH: 0,
 		USDC: 0,
-		// bridgedValueInUSD: 0,
+		bridgedValueInUSD: 0,
 		transactionCount: 0,
 		lastTransaction: 0,
 		activeDays: 0,

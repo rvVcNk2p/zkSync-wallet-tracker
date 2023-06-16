@@ -1,4 +1,5 @@
 import { multiBalancesFetcher } from '@fetchers'
+import { useState } from 'react'
 import useSWR from 'swr'
 import { Address } from 'viem'
 
@@ -12,16 +13,21 @@ const generateUniqueIdentifier = (
 		.join('=')
 }
 
-// TODO: Handle each address separately
 export const useGetMultiOnChainBalances = (
 	addresses: Address[],
 	chainId: number,
 	tokens: string[],
 ) => {
+	const [shouldFetch, setShouldFetch] = useState<boolean>(true)
 	const urls = generateUniqueIdentifier(addresses, chainId, tokens)
 
-	const { data, error, isLoading, isValidating } = useSWR(urls, () =>
-		multiBalancesFetcher(urls),
+	const { data, error, isLoading, isValidating } = useSWR(
+		shouldFetch ? urls : null,
+		() => multiBalancesFetcher(urls),
+		{
+			onSuccess: () => setShouldFetch(false),
+			onError: () => setShouldFetch(false),
+		},
 	)
 
 	return {
@@ -29,5 +35,7 @@ export const useGetMultiOnChainBalances = (
 		error,
 		isLoading,
 		isValidating,
+
+		setShouldFetch,
 	}
 }

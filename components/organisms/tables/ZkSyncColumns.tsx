@@ -3,6 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { shortenerAddress } from '@utils'
 import moment from 'moment'
+import Link from 'next/link'
 
 import { TrashActionIcon } from './TrashIcon'
 
@@ -54,15 +55,25 @@ export const columns: ColumnDef<{ [key: string]: string }>[] = [
 			return <div className="text-center">{formatted}</div>
 		},
 	},
-	// {
-	// 	accessorKey: 'bridgedValueInUSD',
-	// 	header: () => <div className="text-center">Bridged Value</div>,
-	// 	cell: ({ row }) => {
-	// 		const bridgedValueInUSD = row.getValue('bridgedValueInUSD') as number
+	{
+		accessorKey: 'bridgedValueInUSD',
+		header: () => (
+			<div className="text-center">
+				<Link
+					href="https://bridge.zksync.io/"
+					target="_blank"
+					className="underline"
+				>
+					Bridged Value
+				</Link>
+			</div>
+		),
+		cell: ({ row }) => {
+			const bridgedValueInUSD = row.getValue('bridgedValueInUSD') as number
 
-	// 		return <div className="text-center">{bridgedValueInUSD}</div>
-	// 	},
-	// },
+			return <div className="text-center">{bridgedValueInUSD}</div>
+		},
+	},
 	{
 		accessorKey: 'transactionCount',
 		header: () => <div className="text-center">Tx Count</div>,

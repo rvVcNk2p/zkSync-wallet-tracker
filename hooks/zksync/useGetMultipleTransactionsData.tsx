@@ -1,4 +1,5 @@
 import { multiTransactionsFetcher } from '@fetchers'
+import { useState } from 'react'
 import useSWR from 'swr'
 import { Address } from 'viem'
 
@@ -11,12 +12,17 @@ const concatenateAddresses = (
 	return addresses.map((address) => `${address}`).join(separator)
 }
 
-// TODO: Handle each address separately
 export const useGetMultipleTransactionsData = (_addresses: Address[]) => {
+	const [shouldFetch, setShouldFetch] = useState<boolean>(true)
 	const addresses = concatenateAddresses(_addresses, SEPERATOR)
 
-	const { data, error, isLoading, isValidating } = useSWR(addresses, () =>
-		multiTransactionsFetcher({ addresses, separator: SEPERATOR }),
+	const { data, error, isLoading, isValidating } = useSWR(
+		shouldFetch ? addresses : null,
+		() => multiTransactionsFetcher({ addresses, separator: SEPERATOR }),
+		{
+			onSuccess: () => setShouldFetch(false),
+			onError: () => setShouldFetch(false),
+		},
 	)
 
 	return {
@@ -24,5 +30,6 @@ export const useGetMultipleTransactionsData = (_addresses: Address[]) => {
 		error,
 		isLoading,
 		isValidating,
+		setShouldFetch,
 	}
 }
