@@ -13,7 +13,10 @@ export const balancesFetcher = async (
 ): Promise<BalancesResult[]> => {
 	return await Promise.all(
 		tokens.map(async (token) => {
-			const tokenAddress: `0x${string}` = tokenAddresses[chainId][token]
+			// If tokenAddress is undefined, then the fetchBalance() will fetch the balance of Native Token
+			const tokenAddress: `0x${string}` | undefined =
+				tokenAddresses[chainId][token]
+
 			const balance = await fetchBalance({ address, token: tokenAddress })
 
 			return {

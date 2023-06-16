@@ -1,9 +1,5 @@
 import { balancesFetcher } from '@fetchers'
-import {
-	ChainIds,
-	createObjectFromArray,
-	transformResultArrayToObject,
-} from '@utils'
+import { createObjectFromArray, transformResultArrayToObject } from '@utils'
 import useSWR from 'swr'
 import { Address } from 'viem'
 
