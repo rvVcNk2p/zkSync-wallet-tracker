@@ -3,7 +3,6 @@
 import { Button, Card, Input, Label } from '@/components/ui'
 import { useToast } from '@hooks'
 import { ZkSyncTable } from '@organisms'
-import { Trash } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
 import { useState } from 'react'
 
@@ -13,14 +12,14 @@ export default function DashboardPage() {
 	const [newAddress, setNewAddress] = useState<`0x${string}`>('0x')
 
 	const trackedAddresses = useTrackedAddressesStore(
-		(state) => state.trackedAddresses,
+		(state) => state.getTrackedAddresses,
 	)
 	const addTrackedAddress = useTrackedAddressesStore(
 		(state) => state.addTrackedAddress,
 	)
 
 	const handleAddTrackedAddress = (newAddress: `0x${string}`) => {
-		if (trackedAddresses.includes(newAddress)) {
+		if (trackedAddresses().includes(newAddress)) {
 			toast({
 				title: '❌ Duplicated address error!',
 				description: 'Address already tracked.',
@@ -35,7 +34,7 @@ export default function DashboardPage() {
 			description: newAddress,
 			duration: 5000,
 		})
-		setNewAddress('')
+		setNewAddress('0x')
 	}
 
 	return (
@@ -43,12 +42,12 @@ export default function DashboardPage() {
 			<div className="grid grid-cols-1">
 				<div className="blog-list__container">
 					<div className="w-fit mt-6 mx-auto">zkSync Activity Tracker</div>
-					<div className="grid mt-10 gap-4 grid-cols-2">
+					<div className="grid mt-10 grid-cols-1">
 						<Card className="p-4">
 							<Label>Address:</Label>
 							<Input
 								value={newAddress}
-								onChange={(e) => setNewAddress(e.target.value)}
+								onChange={(e) => setNewAddress(e.target.value as `0x${string}`)}
 							></Input>
 							<Button
 								className="flex mt-4 w-full"
@@ -57,17 +56,6 @@ export default function DashboardPage() {
 							>
 								Add new address
 							</Button>
-						</Card>
-						<Card className="p-4">
-							<h1 className="underline">Tracked Addresses</h1>
-							{trackedAddresses.map((address) => (
-								<div
-									className="flex justify-between items-center"
-									key={address}
-								>
-									<div>{address}</div>
-								</div>
-							))}
 						</Card>
 					</div>
 				</div>

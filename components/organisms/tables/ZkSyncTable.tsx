@@ -1,9 +1,13 @@
 'use client'
 
-import { useGetOnChainBalances, useGetTransactionsData } from '@hooks'
+import {
+	useGetMultiOnChainBalances,
+	useGetMultipleTransactionsData,
+} from '@hooks'
 import { useTrackedAddressesStore } from '@stores'
 import { DataTable } from '@ui'
-import { ChainIds } from '@utils'
+import { ChainIds, transformResultArrayToObject } from '@utils'
+import { useEffect } from 'react'
 
 import { columns } from './ZkSyncColumns'
 
@@ -13,37 +17,72 @@ export default function ZkSyncTable() {
 	const trackedAddresses = useTrackedAddressesStore(
 		(state) => state.trackedAddresses,
 	)
+	const getTrackedAddresses = useTrackedAddressesStore(
+		(state) => state.getTrackedAddresses,
+	)
 
-	const { transactionsData, isLoading, error, isValidating } =
-		useGetTransactionsData(trackedAddresses[0])
+	const updateTrackedAddress = useTrackedAddressesStore(
+		(state) => state.updateTrackedAddress,
+	)
 
 	const {
-		data: balances,
-		error: balancesError,
-		isValidating: isBalancesValidating,
-		isLoading: isBalancesLoading,
-	} = useGetOnChainBalances(
-		trackedAddresses[0],
+		data: multipleBalances,
+		error: multipleBalancesError,
+		isLoading: multipleBalancesLoading,
+		isValidating: multipleBalancesValidating,
+	} = useGetMultiOnChainBalances(
+		getTrackedAddresses(),
 		ChainIds.ZK_SYNC_ERA_MAINNET,
 		trackedTokens,
 	)
 
-	let data = {
-		address: trackedAddresses[0],
-		...balances,
-		...transactionsData,
-		bridgedValueInUSD: 0,
-	}
+	const {
+		data: multipleTransactionsData,
+		error: multipleTransactionsError,
+		isLoading: multipleTransactionsLoading,
+		isValidating: multipleTransactionsValidating,
+	} = useGetMultipleTransactionsData(getTrackedAddresses())
+
+	useEffect(() => {
+		if (multipleTransactionsData && multipleBalances) {
+			updateTrackedAddress(
+				trackedAddresses.map((addressData: any) => {
+					const transactionData = multipleTransactionsData.find(
+						(transaction: any) => transaction.address === addressData.address,
+					)
+
+					const balance = multipleBalances.find(
+						(balance: any) => balance.address === addressData.address,
+					)
+
+					return transactionData && balance
+						? {
+								...addressData,
+								...transactionData.data,
+								...transformResultArrayToObject(balance.data),
+						  }
+						: { ...addressData }
+				}),
+			)
+		}
+	}, [multipleTransactionsData, multipleBalances])
+
+	const isLoding =
+		multipleBalancesLoading ||
+		multipleTransactionsLoading ||
+		multipleBalancesValidating ||
+		multipleTransactionsValidating
 
 	return (
 		<div
 			className="mx-auto py-10"
 			style={{ maxWidth: '-webkit-fill-available' }}
 		>
-			{balancesError && <div>{balancesError.message}</div>}
-			{isBalancesLoading && <div>Loading...</div>}
-			{isBalancesValidating && <div>Validating...</div>}
-			{balances ? <DataTable columns={columns} data={[data]} /> : null}
+			<DataTable
+				columns={columns}
+				data={trackedAddresses}
+				isLoading={isLoding}
+			/>
 		</div>
 	)
 }

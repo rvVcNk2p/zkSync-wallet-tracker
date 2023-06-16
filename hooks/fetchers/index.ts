@@ -1,2 +1,5 @@
 export * from './defaultFetcher'
 export * from './balancesFetcher'
+export * from './multiBalancesFetcher'
+export * from './multiTransactionsFetcher'
+export * from './transactionFetcher'

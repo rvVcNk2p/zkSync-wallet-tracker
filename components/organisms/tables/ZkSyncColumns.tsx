@@ -54,15 +54,15 @@ export const columns: ColumnDef<{ [key: string]: string }>[] = [
 			return <div className="text-center">{formatted}</div>
 		},
 	},
-	{
-		accessorKey: 'bridgedValueInUSD',
-		header: () => <div className="text-center">Bridged Value</div>,
-		cell: ({ row }) => {
-			const bridgedValueInUSD = row.getValue('bridgedValueInUSD') as number
+	// {
+	// 	accessorKey: 'bridgedValueInUSD',
+	// 	header: () => <div className="text-center">Bridged Value</div>,
+	// 	cell: ({ row }) => {
+	// 		const bridgedValueInUSD = row.getValue('bridgedValueInUSD') as number
 
-			return <div className="text-center">{bridgedValueInUSD}</div>
-		},
-	},
+	// 		return <div className="text-center">{bridgedValueInUSD}</div>
+	// 	},
+	// },
 	{
 		accessorKey: 'transactionCount',
 		header: () => <div className="text-center">Tx Count</div>,
@@ -80,7 +80,9 @@ export const columns: ColumnDef<{ [key: string]: string }>[] = [
 
 			return (
 				<div className="text-center">
-					{moment(lastTransaction).startOf('minute').fromNow()}
+					{lastTransaction
+						? moment(lastTransaction).startOf('minute').fromNow()
+						: '-'}
 				</div>
 			)
 		},

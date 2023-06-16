@@ -9,7 +9,7 @@ export const useGetOnChainBalances = (
 	tokens: string[],
 ) => {
 	const { data, error, isLoading, isValidating } = useSWR(
-		address + tokens.join('-'),
+		address + '-' + tokens.join('-'),
 		() => balancesFetcher(address, chainId, tokens),
 	)
 
