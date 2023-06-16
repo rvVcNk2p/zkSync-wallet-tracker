@@ -1,10 +1,10 @@
 'use client'
 
 import { Button, Card, Input, Label } from '@/components/ui'
-import { useToast, useZkSyncBalances } from '@hooks'
-import { useGetTransactionsData } from '@hooks'
+import { useGetOnChainBalances, useGetTransactionsData, useToast } from '@hooks'
 import { Trash } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
+import { ChainIds } from '@utils'
 import moment from 'moment'
 import { useState } from 'react'
 
@@ -57,11 +57,15 @@ export default function DashboardPage() {
 	const trackedTokens = ['ETH', 'WETH', 'USDC']
 
 	const {
-		balances,
+		data: balances,
 		error: balancesError,
 		isValidating: isBalancesValidating,
 		isLoading: isBalancesLoading,
-	} = useZkSyncBalances(trackedAddresses[0], trackedTokens)
+	} = useGetOnChainBalances(
+		trackedAddresses[0],
+		ChainIds.ZK_SYNC_ERA_MAINNET,
+		trackedTokens,
+	)
 
 	return (
 		<div className="p-2">

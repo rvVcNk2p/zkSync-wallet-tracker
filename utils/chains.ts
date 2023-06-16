@@ -1,9 +1,9 @@
-import { Chain } from 'viem'
+import { zkSync } from 'viem/chains'
 
 export interface ChainIdMap {
-	[key: string]: Chain
+	[key: string]: number
 }
 
-export enum ChainIds {
-	ZK_SYNC_ERA_MAINNET = 324,
+export const ChainIds: ChainIdMap = {
+	ZK_SYNC_ERA_MAINNET: zkSync.id,
 }

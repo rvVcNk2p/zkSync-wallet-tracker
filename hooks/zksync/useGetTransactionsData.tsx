@@ -1,6 +1,6 @@
 import { defaultFetcher } from '@fetchers'
-import { TransactionResponse } from '@types'
-import { Transaction } from '@types'
+import type { TransactionResponse } from '@types'
+import type { Transaction } from '@types'
 import { hexToBn } from '@utils'
 import moment from 'moment'
 import useSWR from 'swr'
