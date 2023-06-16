@@ -1,4 +1,4 @@
-import { QueryProvider, RainbowKitWrapper, ThemeWrapper } from '@organisms'
+import { RainbowKitWrapper, ThemeWrapper } from '@organisms'
 import { Toaster } from '@ui'
 
 import './globals.css'
@@ -17,11 +17,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
 		<html lang="en">
 			<body>
 				<main>
-					<QueryProvider>
-						<RainbowKitWrapper>
-							<ThemeWrapper>{children}</ThemeWrapper>
-						</RainbowKitWrapper>
-					</QueryProvider>
+					<RainbowKitWrapper>
+						<ThemeWrapper>{children}</ThemeWrapper>
+					</RainbowKitWrapper>
 					<Toaster />
 				</main>
 			</body>

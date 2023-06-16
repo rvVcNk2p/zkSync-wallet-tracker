@@ -1,4 +1,4 @@
-import { defaultFetcher } from '@hooks'
+import { defaultFetcher } from '@fetchers'
 import { TransactionResponse } from '@types'
 import { Transaction } from '@types'
 import { hexToBn } from '@utils'

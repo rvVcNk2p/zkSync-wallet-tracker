@@ -1,4 +1,4 @@
-import { defaultFetcher } from '@hooks'
+import { defaultFetcher } from '@fetchers'
 import { TokenBalanceResponse } from '@types'
 import { tokenAddresses } from '@utils'
 import useSWR from 'swr'
