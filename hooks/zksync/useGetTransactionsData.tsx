@@ -99,7 +99,7 @@ export const useGetTransactionsData = (address: Address) => {
 
 	const transactionsData = {
 		transactionCount,
-		lastTransaction: data?.list[0],
+		lastTransaction: data?.list[0].receivedAt,
 		activeDays,
 		activeWeeks,
 		activeMonths,
