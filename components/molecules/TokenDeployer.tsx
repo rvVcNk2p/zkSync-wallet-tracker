@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@hooks'
 import { Spinner } from '@phosphor-icons/react'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import {
 	Button,
 	Card,
@@ -140,68 +141,68 @@ const TokenDeployer = (): JSX.Element => {
 	}
 
 	return (
-		<>
-			<Card>
-				<CardHeader className="space-y-1">
-					<CardTitle className="text-2xl">ERC20 Contract</CardTitle>
-					<CardDescription>
-						Create your unique cypto token within 20 seconds
-					</CardDescription>
-				</CardHeader>
-				<CardContent className="grid gap-4">
-					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-							<FormField
-								control={form.control}
-								name="tokenName"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Token Name</FormLabel>
-										<FormControl>
-											<Input
-												placeholder="e.g. Bitcoin"
-												{...field}
-												disabled={isTransactionLoading}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="symbol"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Symbol</FormLabel>
-										<FormControl>
-											<Input
-												placeholder="e.g. BTC"
-												{...field}
-												disabled={isTransactionLoading}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="initialSupply"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Initial Supply</FormLabel>
-										<FormControl>
-											<Input
-												type="number"
-												{...field}
-												disabled={isTransactionLoading}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+		<Card>
+			<CardHeader className="space-y-1">
+				<CardTitle className="text-2xl">ERC20 Contract</CardTitle>
+				<CardDescription>
+					Create your unique cypto token within 20 seconds
+				</CardDescription>
+			</CardHeader>
+			<CardContent className="grid gap-4 pb-0">
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+						<FormField
+							control={form.control}
+							name="tokenName"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Token Name</FormLabel>
+									<FormControl>
+										<Input
+											placeholder="e.g. Bitcoin"
+											{...field}
+											disabled={isTransactionLoading}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="symbol"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Symbol</FormLabel>
+									<FormControl>
+										<Input
+											placeholder="e.g. BTC"
+											{...field}
+											disabled={isTransactionLoading}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="initialSupply"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Initial Supply</FormLabel>
+									<FormControl>
+										<Input
+											type="number"
+											{...field}
+											disabled={isTransactionLoading}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						{address ? (
 							<Button
 								type="submit"
 								className="w-full !mt-10"
@@ -216,12 +217,17 @@ const TokenDeployer = (): JSX.Element => {
 									<Label className="cursor-pointer">Deploy</Label>
 								)}
 							</Button>
-						</form>
-					</Form>
-				</CardContent>
-				<CardFooter></CardFooter>
-			</Card>
-		</>
+						) : (
+							// Add some adjustments to the button, like color and size
+							<div className="mt-10 flex justify-center">
+								<ConnectButton />
+							</div>
+						)}
+					</form>
+				</Form>
+			</CardContent>
+			<CardFooter></CardFooter>
+		</Card>
 	)
 }
 

@@ -7,9 +7,11 @@ import {
 	NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
+import { useIsMounted } from '@/hooks'
 import { Hammer, Moon, SunDim } from '@phosphor-icons/react'
 import { Chain, useAccountModal, useChainModal } from '@rainbow-me/rainbowkit'
 import { Button } from '@ui'
+import { Skeleton } from '@ui'
 import { cn, shortenerAddress } from '@utils'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -22,7 +24,7 @@ type NavItem = {
 	label: string
 }
 const navItems: NavItem[] = [
-	{ href: '/dashboard', label: 'Dashboard' },
+	{ href: '/multiple-tracker', label: 'Multiple Tracker' },
 	{ href: '/forge', label: 'Forge' },
 ]
 
@@ -32,6 +34,8 @@ const Header = (): JSX.Element => {
 
 	const { address } = useAccount()
 	const { chain } = useNetwork()
+
+	const isMounted = useIsMounted()
 
 	return (
 		<>
@@ -52,18 +56,25 @@ const Header = (): JSX.Element => {
 
 				<div className="flex gap-2">
 					<ThemeToggleButton />
-					<Button className="p-2" onClick={openChainModal}>
-						<Image
-							src={(chain as Chain)?.iconUrl as string}
-							width={28}
-							height={28}
-							className="border-2 rounded-full border-primary dark:border-secondary"
-							alt="Picture of the active chain"
-						/>
-					</Button>
-					<Button onClick={openAccountModal} className="min-h-full text-base">
-						{address && shortenerAddress(address)}
-					</Button>
+					{address && isMounted ? (
+						<>
+							<Button className="p-2" onClick={openChainModal}>
+								<Image
+									src={(chain as Chain)?.iconUrl as string}
+									width={28}
+									height={28}
+									className="border-2 rounded-full border-primary dark:border-secondary"
+									alt="Picture of the active chain"
+								/>
+							</Button>
+							<Button
+								onClick={openAccountModal}
+								className="min-h-full text-base"
+							>
+								{address && shortenerAddress(address)}
+							</Button>
+						</>
+					) : null}
 				</div>
 			</NavigationMenu>
 		</>
@@ -98,16 +109,21 @@ ListItem.displayName = 'ListItem'
 
 const ThemeToggleButton = () => {
 	const { theme, setTheme } = useTheme()
+	const isMounted = useIsMounted()
 
 	return (
 		<Button
 			className="min-h-full p-2"
 			onClick={() => (theme == 'dark' ? setTheme('light') : setTheme('dark'))}
 		>
-			{theme === 'dark' ? (
-				<SunDim size={20} />
+			{isMounted ? (
+				theme === 'dark' ? (
+					<SunDim size={20} />
+				) : (
+					<Moon size={20} weight="fill" />
+				)
 			) : (
-				<Moon size={20} weight="fill" />
+				<Skeleton className="w-[20px] h-[20px] rounded-full" />
 			)}
 		</Button>
 	)

@@ -14,8 +14,8 @@ module.exports = {
 	async redirects() {
 		return [
 			{
-				source: '/',
-				destination: '/dashboard',
+				source: '/login',
+				destination: '/multiple-tracker',
 				permanent: true,
 			},
 		]

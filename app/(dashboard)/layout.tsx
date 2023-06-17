@@ -10,10 +10,12 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
 	children,
 }: DashboardLayoutProps) => {
 	return (
-		<WalletAuthenticationWrapper>
+		// <WalletAuthenticationWrapper>
+		<>
 			<Header />
 			<PageLayout>{children}</PageLayout>
-		</WalletAuthenticationWrapper>
+		</>
+		// </WalletAuthenticationWrapper>
 	)
 }
 

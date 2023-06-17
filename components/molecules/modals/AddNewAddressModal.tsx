@@ -54,7 +54,7 @@ const AddNewAddressModal = ({ children }: AddNewAddressModalProps) => {
 
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger>{children}</AlertDialogTrigger>
+			<AlertDialogTrigger asChild={true}>{children}</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>Add new address</AlertDialogTitle>

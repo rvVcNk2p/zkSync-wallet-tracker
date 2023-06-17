@@ -9,6 +9,7 @@ export * from './input'
 export * from './label'
 export * from './slider'
 export * from './toaster'
+export * from './skeleton'
 
 // toast.tsx
 // navigation-menu.tsx

@@ -101,7 +101,10 @@ export default function ZkSyncTable() {
 			prevTrackedAddresse &&
 			getTrackedAddresses().length > prevTrackedAddresse?.length
 		) {
-			handleFetchTrigger()
+			// Delay to allow the new address to be added to the store
+			setTimeout(() => {
+				handleFetchTrigger()
+			}, 100)
 		}
 	}, [getTrackedAddresses()])
 

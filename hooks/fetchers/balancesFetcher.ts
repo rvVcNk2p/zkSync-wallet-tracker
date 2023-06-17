@@ -17,7 +17,11 @@ export const balancesFetcher = async (
 			const tokenAddress: `0x${string}` | undefined =
 				tokenAddresses[chainId][token]
 
-			const balance = await fetchBalance({ address, token: tokenAddress })
+			const balance = await fetchBalance({
+				address,
+				token: tokenAddress,
+				chainId,
+			})
 
 			return {
 				[token]: Number(formatUnits(balance.value, balance.decimals)).toFixed(
