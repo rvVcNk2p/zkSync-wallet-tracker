@@ -3,8 +3,9 @@
 import { useIsMounted } from '@hooks'
 import { useGetOnChainBalances, useGetTransactionsData } from '@hooks'
 import { SingleCard } from '@molecules'
+import { CircleNotch } from '@phosphor-icons/react'
 import { Label } from '@ui'
-import { usdFormatter } from '@utils'
+import { ChainIds, transformResultArrayToObject, usdFormatter } from '@utils'
 import moment from 'moment'
 import { useEffect } from 'react'
 import { useSingleZksyncStore } from 'stores'
@@ -12,7 +13,7 @@ import { Address } from 'wagmi'
 
 const cardTitle = ({ address }: { address: Address }) => {
 	return (
-		<div className="flex justify-between px-4 border-b pb-4">
+		<div className="flex justify-between px-4 border-b pb-4 flex-wrap">
 			<Label className="text-md">{address}</Label>
 			<div>Search comes here..</div>
 		</div>
@@ -21,12 +22,16 @@ const cardTitle = ({ address }: { address: Address }) => {
 
 type CardTileProps = {
 	data: { title: string; value: string | number }[]
+	isLoading?: boolean
 }
 
-const CardTile = ({ data }: CardTileProps) => {
+const CardTile = ({ data, isLoading }: CardTileProps) => {
 	return (
 		<SingleCard>
-			<div className="flex flex-col justify-between w-full gap-4">
+			<div
+				className="flex flex-col justify-between w-full gap-4"
+				style={{ opacity: isLoading ? 0.5 : 1 }}
+			>
 				{data.map((item) => {
 					return (
 						<div
@@ -34,7 +39,12 @@ const CardTile = ({ data }: CardTileProps) => {
 							key={item.title}
 						>
 							<Label className="text-base">{item.title}</Label>
-							<div>{item.value}</div>
+							<div className="flex items-center">
+								{isLoading ? (
+									<CircleNotch className="mr-2 animate-spin" />
+								) : null}
+								{item.value}
+							</div>
 						</div>
 					)
 				})}
@@ -59,19 +69,44 @@ const SingleZksyncContent = () => {
 		isValidating: transactionIsValidating,
 	} = useGetTransactionsData(address)
 
+	const {
+		data: balanceData,
+		error: balanceError,
+		isLoading: balanceIsLoading,
+		isValidating: balanceIsValidating,
+	} = useGetOnChainBalances(address, ChainIds.ZK_SYNC_ERA_MAINNET, [
+		'ETH',
+		'WETH',
+		'USDC',
+	])
+
 	useEffect(() => {
 		if (transactionData) {
-			console.log('transactionData', transactionData)
 			updateTrackedInfo({
 				...trackedInfo,
 				transactions: {
 					...transactionData.data,
 					bridgedValueInUSD: 0,
+					smartContractInteractionCount: 0,
 				},
 			})
 		}
 	}, [transactionData])
 
+	useEffect(() => {
+		if (balanceData) {
+			const transformedBalancesData = transformResultArrayToObject(balanceData)
+			updateTrackedInfo({
+				...trackedInfo,
+				tokens: {
+					...trackedInfo.tokens,
+					...transformedBalancesData,
+				},
+			})
+		}
+	}, [balanceData])
+
+	// Transaction Data Mapping
 	const {
 		activeDays,
 		activeWeeks,
@@ -81,6 +116,7 @@ const SingleZksyncContent = () => {
 		transactionVolumeInUSD,
 		transactionCount,
 		lastTransaction,
+		smartContractInteractionCount,
 	} = trackedInfo.transactions
 
 	const timeRelatedData = [
@@ -101,7 +137,7 @@ const SingleZksyncContent = () => {
 	const usdRelatedData = [
 		{
 			title: 'Bridged Value (USD)',
-			value: usdFormatter(bridgedValueInUSD),
+			value: '🚧', //usdFormatter(bridgedValueInUSD),
 		},
 		{
 			title: 'Gas Cost (USD)',
@@ -115,31 +151,77 @@ const SingleZksyncContent = () => {
 
 	const transactionActivityData = [
 		{
-			title: 'Transaction Count',
-			value: transactionCount,
-		},
-		{
 			title: 'Last Transaction',
 			value: lastTransaction
 				? moment(lastTransaction).startOf('minute').fromNow()
 				: '-',
 		},
+		{
+			title: 'Transaction Count',
+			value: transactionCount,
+		},
+		{
+			title: 'Contract Interaction',
+			value: '🚧', //smartContractInteractionCount,
+		},
 	]
+
+	// Balance Data Mapping
+	const { ETH, WETH, USDC } = trackedInfo.tokens
+
+	const tokensData = [
+		{
+			title: 'ETH',
+			value: ETH,
+		},
+		{
+			title: 'WETH',
+			value: WETH,
+		},
+		{
+			title: 'USDC',
+			value: USDC,
+		},
+	]
+
+	const transactionIsLoadingOrValidating =
+		transactionIsLoading || transactionIsValidating
+	const balanceIsLoadingOrValidating = balanceIsLoading || balanceIsValidating
 
 	return (
 		<>
 			{address ? (
-				<div className="flex flex-col items-center gap-6">
-					<h1 className="text-xl">zkSync Era Mainnet</h1>
+				<div className="flex flex-col items-end gap-6">
+					<h1 className="text-xl text-center w-full mb-6">
+						zkSync Era Mainnet
+					</h1>
+
 					{isMounted ? (
 						<>
 							<SingleCard title={cardTitle({ address })}>
-								<div className="flex flex-col gap-4">
-									<CardTile data={usdRelatedData} />
-									<CardTile data={transactionActivityData} />
-									<CardTile data={timeRelatedData} />
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+									<CardTile
+										data={usdRelatedData}
+										isLoading={transactionIsLoadingOrValidating}
+									/>
+									<CardTile
+										data={transactionActivityData}
+										isLoading={transactionIsLoadingOrValidating}
+									/>
+									<CardTile
+										data={tokensData}
+										isLoading={balanceIsLoadingOrValidating}
+									/>
+									<CardTile
+										data={timeRelatedData}
+										isLoading={transactionIsLoadingOrValidating}
+									/>
 								</div>
 							</SingleCard>
+							<Label className="text-xs italic">
+								*Refreshing occurs automatically; there is no need to click on a
+								&apos;Refresh&apos; button.
+							</Label>
 						</>
 					) : null}
 				</div>

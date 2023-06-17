@@ -10,6 +10,7 @@ const initialTrackedInfo = {
 	},
 	transactions: {
 		transactionCount: 0,
+		smartContractInteractionCount: 0,
 		lastTransaction: 0,
 		bridgedValueInUSD: 0,
 		gasFeeCostInUSD: 0,
@@ -27,14 +28,15 @@ type TrackedInfo = {
 		USDC: number
 	}
 	transactions: {
-		bridgedValueInUSD: number
 		transactionCount: number
+		smartContractInteractionCount: number
 		lastTransaction: number
+		bridgedValueInUSD: number
+		gasFeeCostInUSD: number
+		transactionVolumeInUSD: number
 		activeDays: number
 		activeWeeks: number
 		activeMonths: number
-		gasFeeCostInUSD: number
-		transactionVolumeInUSD: number
 	}
 }
 
