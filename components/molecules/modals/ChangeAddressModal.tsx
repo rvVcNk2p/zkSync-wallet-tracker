@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useToast } from '@hooks'
 import { Plus } from '@phosphor-icons/react'
-import { useTrackedAddressesStore } from '@stores'
+import { useSingleZksyncStore } from '@stores'
 import { Button, Input } from '@ui'
 import { useState } from 'react'
 
@@ -21,32 +21,31 @@ interface AddNewAddressModalProps {
 	children: React.ReactNode
 }
 
-const AddNewAddressModal = ({ children }: AddNewAddressModalProps) => {
+const ChangeAddressModal = ({ children }: AddNewAddressModalProps) => {
 	const { toast } = useToast()
 
 	const [newAddress, setNewAddress] = useState<`0x${string}`>('0x')
 
-	const trackedAddresses = useTrackedAddressesStore(
-		(state) => state.getTrackedAddresses,
-	)
-	const addTrackedAddress = useTrackedAddressesStore(
-		(state) => state.addTrackedAddress,
-	)
+	const changeAddress = useSingleZksyncStore((state) => state.setAddress)
+	const address = useSingleZksyncStore((state) => state.address)
 
 	const resetAddressInput = () => setNewAddress('0x')
 
 	const handleAddTrackedAddress = (newAddress: `0x${string}`) => {
-		if (trackedAddresses().includes(newAddress)) {
+		if (address === newAddress) {
 			toast({
-				title: '❌ Duplicated address error!',
-				description: 'Address already tracked.',
+				title: '❌ Old address error!',
+				description: 'Nothing changed. Please enter a new address.',
 				duration: 5000,
 				variant: 'destructive',
 			})
+
 			resetAddressInput()
 			return
 		}
-		addTrackedAddress(newAddress)
+
+		changeAddress(newAddress)
+
 		toast({
 			title: '✅ New address added!',
 			description: newAddress,
@@ -81,7 +80,7 @@ const AddNewAddressModal = ({ children }: AddNewAddressModalProps) => {
 							onClick={() => handleAddTrackedAddress(newAddress)}
 						>
 							<Plus className="mr-2" />
-							Add new address
+							Change address
 						</Button>
 					</AlertDialogAction>
 				</AlertDialogFooter>
@@ -90,4 +89,4 @@ const AddNewAddressModal = ({ children }: AddNewAddressModalProps) => {
 	)
 }
 
-export default AddNewAddressModal
+export default ChangeAddressModal

@@ -2,9 +2,9 @@
 
 import { useIsMounted } from '@hooks'
 import { useGetOnChainBalances, useGetTransactionsData } from '@hooks'
-import { SingleCard } from '@molecules'
-import { CircleNotch } from '@phosphor-icons/react'
-import { Label } from '@ui'
+import { ChangeAddressModal, SingleCard } from '@molecules'
+import { ArrowsClockwise, CircleNotch } from '@phosphor-icons/react'
+import { Button, Label } from '@ui'
 import { ChainIds, transformResultArrayToObject, usdFormatter } from '@utils'
 import moment from 'moment'
 import { useEffect } from 'react'
@@ -13,9 +13,14 @@ import { Address } from 'wagmi'
 
 const cardTitle = ({ address }: { address: Address }) => {
 	return (
-		<div className="flex justify-between px-4 border-b pb-4 flex-wrap">
+		<div className="flex justify-between items-center px-4 border-b pb-4 flex-wrap gap-4">
 			<Label className="text-md">{address}</Label>
-			<div>Search comes here..</div>
+			<ChangeAddressModal>
+				<Button className="w-fit">
+					<ArrowsClockwise className="mr-2" />
+					Change address
+				</Button>
+			</ChangeAddressModal>
 		</div>
 	)
 }
