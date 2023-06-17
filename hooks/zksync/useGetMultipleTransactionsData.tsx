@@ -1,3 +1,5 @@
+'use client'
+
 import { multiTransactionsFetcher } from '@fetchers'
 import { useState } from 'react'
 import useSWR from 'swr'

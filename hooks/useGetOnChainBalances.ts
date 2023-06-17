@@ -1,3 +1,5 @@
+'use client'
+
 import { balancesFetcher } from '@fetchers'
 import { createObjectFromArray, transformResultArrayToObject } from '@utils'
 import useSWR from 'swr'

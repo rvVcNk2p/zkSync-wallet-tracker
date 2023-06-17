@@ -25,6 +25,7 @@ type NavItem = {
 }
 const navItems: NavItem[] = [
 	{ href: '/multiple-tracker', label: 'Multiple Tracker' },
+	{ href: '/zksync', label: 'zkSync' },
 	{ href: '/forge', label: 'Forge' },
 ]
 

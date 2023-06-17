@@ -2,6 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 import { shortenerAddress } from '@utils'
+import { usdFormatter } from '@utils'
 import moment from 'moment'
 import Link from 'next/link'
 
@@ -34,10 +35,7 @@ export const columns: ColumnDef<{ [key: string]: string }>[] = [
 		header: () => <div className="text-center">Tx Volume</div>,
 		cell: ({ row }) => {
 			const amount = row.getValue('transactionVolumeInUSD') as number
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'USD',
-			}).format(amount)
+			const formatted = usdFormatter(amount)
 
 			return <div className="text-center">{formatted}</div>
 		},
@@ -47,10 +45,7 @@ export const columns: ColumnDef<{ [key: string]: string }>[] = [
 		header: () => <div className="text-center">Gas Cost</div>,
 		cell: ({ row }) => {
 			const amount = row.getValue('gasFeeCostInUSD') as number
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'USD',
-			}).format(amount)
+			const formatted = usdFormatter(amount)
 
 			return <div className="text-center">{formatted}</div>
 		},
@@ -69,9 +64,10 @@ export const columns: ColumnDef<{ [key: string]: string }>[] = [
 			</div>
 		),
 		cell: ({ row }) => {
-			const bridgedValueInUSD = row.getValue('bridgedValueInUSD') as number
+			const amount = row.getValue('bridgedValueInUSD') as number
+			const formatted = usdFormatter(amount)
 
-			return <div className="text-center">{bridgedValueInUSD}</div>
+			return <div className="text-center">{formatted}</div>
 		},
 	},
 	{

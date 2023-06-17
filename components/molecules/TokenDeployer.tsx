@@ -1,3 +1,5 @@
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@hooks'
 import { Spinner } from '@phosphor-icons/react'
