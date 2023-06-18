@@ -1,8 +1,16 @@
 'use client'
 
-import { useIsMounted } from '@hooks'
-import { useGetOnChainBalances, useGetTransactionsData } from '@hooks'
-import { ChangeAddressModal, SingleCard } from '@molecules'
+import {
+	useGenerateTasks,
+	useGetOnChainBalances,
+	useGetTransactionsData,
+	useIsMounted,
+} from '@hooks'
+import {
+	AchievementAccordion,
+	ChangeAddressModal,
+	SingleCard,
+} from '@molecules'
 import { ArrowsClockwise, CircleNotch } from '@phosphor-icons/react'
 import { Button, Label } from '@ui'
 import { ChainIds, transformResultArrayToObject, usdFormatter } from '@utils'
@@ -11,7 +19,7 @@ import { useEffect } from 'react'
 import { useSingleZksyncStore } from 'stores'
 import { Address } from 'wagmi'
 
-const cardTitle = ({ address }: { address: Address }) => {
+const CardTitle = ({ address }: { address: Address }) => {
 	return (
 		<div className="flex justify-between items-center px-4 border-b pb-4 flex-wrap gap-4">
 			<Label className="text-md">{address}</Label>
@@ -192,6 +200,8 @@ const SingleZksyncContent = () => {
 		transactionIsLoading || transactionIsValidating
 	const balanceIsLoadingOrValidating = balanceIsLoading || balanceIsValidating
 
+	const tasks = useGenerateTasks()
+
 	return (
 		<>
 			{address ? (
@@ -202,7 +212,7 @@ const SingleZksyncContent = () => {
 
 					{isMounted ? (
 						<>
-							<SingleCard title={cardTitle({ address })}>
+							<SingleCard title={<CardTitle address={address} />}>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 									<CardTile
 										data={usdRelatedData}
@@ -226,6 +236,15 @@ const SingleZksyncContent = () => {
 								*Refreshing occurs automatically; there is no need to click on a
 								&apos;Refresh&apos; button.
 							</Label>
+							{/* Achivement section */}
+							<div className="w-full flex flex-col justify-center items-center gap-20 mt-20">
+								<h1 className="text-3xl underline">
+									zkSync Airdrop Eligibility Guide
+								</h1>
+								<div className="w-[500px]">
+									<AchievementAccordion tasks={tasks} />
+								</div>
+							</div>
 						</>
 					) : null}
 				</div>
