@@ -19,3 +19,19 @@ export const transformResultArrayToObject = <T>(
 		return result
 	}, {})
 }
+
+export const generateLimitAndOffsetArray = (
+	limit: number,
+	totalSize: number,
+) => {
+	const offsetArray = []
+	let remainingNumber = totalSize
+
+	for (let i = 1; i < Math.ceil(totalSize / limit); i++) {
+		const offset = Math.min(limit, remainingNumber - limit)
+		offsetArray.push({ limit: offset, offset: limit * i })
+		remainingNumber -= limit
+	}
+
+	return offsetArray
+}

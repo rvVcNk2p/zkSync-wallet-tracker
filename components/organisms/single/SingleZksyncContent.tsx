@@ -91,7 +91,6 @@ const SingleZksyncContent = () => {
 				...trackedInfo,
 				transactions: {
 					...transactionData.data,
-					bridgedValueInUSD: 0,
 					smartContractInteractionCount: 0,
 				},
 			})
@@ -142,7 +141,7 @@ const SingleZksyncContent = () => {
 	const usdRelatedData = [
 		{
 			title: 'Bridged Value (USD)',
-			value: '🚧', //usdFormatter(bridgedValueInUSD),
+			value: usdFormatter(bridgedValueInUSD),
 		},
 		{
 			title: 'Gas Cost (USD)',

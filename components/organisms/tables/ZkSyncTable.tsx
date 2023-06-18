@@ -65,7 +65,6 @@ export default function ZkSyncTable() {
 								...addressData,
 								...transactionData.data,
 								...transformResultArrayToObject(balance.data),
-								bridgedValueInUSD: 0,
 						  }
 						: { ...addressData }
 				}),

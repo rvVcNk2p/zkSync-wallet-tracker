@@ -1,7 +1,7 @@
 import { defaultFetcher } from '@fetchers'
 import type { TransactionResponse } from '@types'
 import type { Transaction } from '@types'
-import { hexToBn } from '@utils'
+import { generateLimitAndOffsetArray, hexToBn } from '@utils'
 import moment from 'moment'
 import { formatUnits } from 'viem'
 
@@ -10,6 +10,7 @@ const calculateActivity = (transactions: Transaction[] = []) => {
 	let feeCost: bigint = BigInt(0)
 	let transactionVolumeInUSD: number = 0
 	let ethUSDPrice: number = 0
+	let bridgedValueInUSD: number = 0
 
 	transactions.forEach((transaction: Transaction) => {
 		activeDays.add(moment(transaction.receivedAt).format('YYYY-MM-DD'))
@@ -26,14 +27,19 @@ const calculateActivity = (transactions: Transaction[] = []) => {
 				tokenInfo: { decimals, usdPrice },
 				amount,
 				// from,
-				// type,
+				type,
 			} = balanceChange as any
-			// from === transaction.initiatorAddress && type === 'transfer'
 
-			const transactionValue =
-				(parseInt(amount, 16) / 10 ** decimals) * usdPrice
+			// Bridged value calculation in USD
+			if (type === 'deposit') {
+				bridgedValueInUSD += (parseInt(amount, 16) / 10 ** decimals) * usdPrice
+			}
 
-			transactionVolumeInUSD += transactionValue
+			if (type !== 'deposit') {
+				const transactionValue =
+					(parseInt(amount, 16) / 10 ** decimals) * usdPrice
+				transactionVolumeInUSD += transactionValue
+			}
 		}
 	})
 
@@ -73,6 +79,7 @@ const calculateActivity = (transactions: Transaction[] = []) => {
 		activeMonths: Object.keys(ativeMonths).length,
 		gasFeeCostInUSD,
 		transactionVolumeInUSD: transactionVolumeInUSD.toFixed(2),
+		bridgedValueInUSD: bridgedValueInUSD.toFixed(2),
 	}
 }
 
@@ -80,15 +87,40 @@ type TransactionFetcheProps = {
 	address: `0x${string}`
 }
 
-const TRANSACTIONS_URL =
-	'https://zksync2-mainnet-explorer.zksync.io/transactions?limit=100&direction=older&accountAddress='
+const LIMIT_SIZE = 100
+
+const TRANSACTIONS_URL = `https://zksync2-mainnet-explorer.zksync.io/transactions?direction=older&accountAddress=`
 
 // TODO: Handle fallback data
 export const transactionFetcher = async ({
 	address,
 }: TransactionFetcheProps): Promise<any> => {
-	const url = TRANSACTIONS_URL + address
+	const url = TRANSACTIONS_URL + address + `&limit=${LIMIT_SIZE}`
 	const data = await defaultFetcher<TransactionResponse>(url)
+
+	// If there is more than LIMIT_SIZE transactions, we need to fetch the remaining transactions
+	const remainingTransactionsUrl = generateLimitAndOffsetArray(
+		LIMIT_SIZE,
+		data.total,
+	).map(({ limit, offset }) => {
+		return `${TRANSACTIONS_URL}${address}&limit=${limit}&offset=${offset}`
+	})
+
+	const remainingTransactions = await Promise.all(
+		remainingTransactionsUrl.map((url) =>
+			defaultFetcher<TransactionResponse>(url),
+		),
+	)
+
+	let transactionsLis = [
+		...data.list,
+		...remainingTransactions.reduce(
+			(acc: Transaction[], nextList: TransactionResponse) => {
+				return [...acc, ...nextList.list]
+			},
+			[],
+		),
+	]
 
 	const {
 		activeDays,
@@ -96,9 +128,16 @@ export const transactionFetcher = async ({
 		activeMonths,
 		gasFeeCostInUSD,
 		transactionVolumeInUSD,
-	} = calculateActivity(data?.list)
+		bridgedValueInUSD,
+	} = calculateActivity(transactionsLis)
 
-	const transactionCount = data?.list[0]?.nonce ? data?.list[0]?.nonce + 1 : 0
+	const lastTransactionWithNonce = transactionsLis?.find(
+		(t) => t.nonce !== null,
+	)
+
+	const transactionCount = lastTransactionWithNonce
+		? lastTransactionWithNonce.nonce + 1
+		: 0
 
 	const transactionsData = {
 		address,
@@ -110,6 +149,7 @@ export const transactionFetcher = async ({
 			activeMonths,
 			gasFeeCostInUSD,
 			transactionVolumeInUSD,
+			bridgedValueInUSD,
 		},
 	}
 
