@@ -237,7 +237,7 @@ const SingleZksyncContent = () => {
 								&apos;Refresh&apos; button.
 							</Label>
 							{/* Achivement section */}
-							<div className="w-full flex flex-col justify-center items-center gap-20 mt-20">
+							<div className="w-full flex flex-col justify-center items-center gap-20 my-20">
 								<h1 className="text-3xl underline">
 									zkSync Airdrop Eligibility Guide
 								</h1>

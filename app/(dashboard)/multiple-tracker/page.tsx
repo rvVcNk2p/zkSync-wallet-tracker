@@ -9,7 +9,7 @@ export default function MultipleAddressTrackerPage() {
 	return (
 		<div className="p-2">
 			<div className="grid grid-cols-1">
-				<div className="w-fit mt-6 mx-auto">zkSync Era Mainnet</div>
+				<div className="w-fit mt-6 mx-auto text-xl">zkSync Era Mainnet</div>
 				{isMounted ? (
 					<ZkSyncTable />
 				) : (

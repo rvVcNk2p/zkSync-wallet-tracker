@@ -26,7 +26,7 @@ type NavItem = {
 const navItems: NavItem[] = [
 	{ href: '/multiple-tracker', label: 'Multiple Tracker' },
 	{ href: '/zksync', label: 'zkSync' },
-	{ href: '/forge', label: 'Forge' },
+	// { href: '/forge', label: 'Forge' },
 ]
 
 const Header = (): JSX.Element => {
