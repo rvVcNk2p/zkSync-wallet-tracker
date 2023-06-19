@@ -24,12 +24,14 @@ interface AddNewAddressModalProps {
 const ChangeAddressModal = ({ children }: AddNewAddressModalProps) => {
 	const { toast } = useToast()
 
-	const [newAddress, setNewAddress] = useState<`0x${string}`>('0x')
+	// @ts-ignore
+	const [newAddress, setNewAddress] = useState<`0x${string}`>('')
 
 	const changeAddress = useSingleZksyncStore((state) => state.setAddress)
 	const address = useSingleZksyncStore((state) => state.address)
 
-	const resetAddressInput = () => setNewAddress('0x')
+	// @ts-ignore
+	const resetAddressInput = () => setNewAddress('')
 
 	const handleAddTrackedAddress = (newAddress: `0x${string}`) => {
 		if (address === newAddress) {
@@ -64,6 +66,7 @@ const ChangeAddressModal = ({ children }: AddNewAddressModalProps) => {
 						<div className="grid grid-cols-1">
 							<Input
 								value={newAddress}
+								placeholder="0x329C06C335d5fd3f18600e5A05280E911f083038"
 								onChange={(e) => setNewAddress(e.target.value as `0x${string}`)}
 							/>
 						</div>
