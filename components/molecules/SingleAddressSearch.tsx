@@ -29,6 +29,7 @@ const SingleAddressSearch = () => {
 						<Input
 							value={localAddress}
 							onChange={handleLocalAddressChange}
+							placeholder="0x329C06C335d5fd3f18600e5A05280E911f083038"
 							className="rounded-tr-none rounded-br-none"
 						/>
 						<Button

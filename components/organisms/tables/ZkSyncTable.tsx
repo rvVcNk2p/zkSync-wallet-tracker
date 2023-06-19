@@ -75,9 +75,11 @@ export default function ZkSyncTable() {
 
 	const isLoding =
 		multipleTransactionsLoading ||
-		// multipleTransactionsValidating
-		multipleBalancesLoading
-	// multipleBalancesValidating
+		multipleTransactionsValidating ||
+		multipleBalancesLoading ||
+		multipleBalancesValidating
+
+	console.log('isLoding', isLoding)
 
 	const [isRefreshAvailable, setIsRefreshAvailable] = useState(true)
 
