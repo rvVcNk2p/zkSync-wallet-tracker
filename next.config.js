@@ -14,6 +14,11 @@ const nextConfig = {
 				destination: '/multiple-tracker',
 				permanent: true,
 			},
+			{
+				source: '/',
+				destination: '/multiple-tracker',
+				permanent: true,
+			},
 		]
 	},
 }
