@@ -34,7 +34,7 @@ const ChangeAddressModal = ({ children }: AddNewAddressModalProps) => {
 	const handleAddTrackedAddress = (newAddress: `0x${string}`) => {
 		if (address === newAddress) {
 			toast({
-				title: '❌ Old address error!',
+				title: 'Old address error!',
 				description: 'Nothing changed. Please enter a new address!',
 				duration: 5000,
 				variant: 'destructive',

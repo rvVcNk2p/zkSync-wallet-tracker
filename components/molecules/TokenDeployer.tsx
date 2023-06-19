@@ -1,5 +1,13 @@
 'use client'
 
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@hooks'
 import { Spinner } from '@phosphor-icons/react'
@@ -12,12 +20,6 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
 	Input,
 	Label,
 } from '@ui'

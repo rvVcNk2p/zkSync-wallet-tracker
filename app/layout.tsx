@@ -1,5 +1,5 @@
+import { Toaster } from '@/components/ui/toaster'
 import { RainbowKitWrapper, ThemeWrapper } from '@organisms'
-import { Toaster } from '@ui'
 
 import './globals.css'
 

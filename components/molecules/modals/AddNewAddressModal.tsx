@@ -38,7 +38,7 @@ const AddNewAddressModal = ({ children }: AddNewAddressModalProps) => {
 	const handleAddTrackedAddress = (newAddress: `0x${string}`) => {
 		if (trackedAddresses().includes(newAddress)) {
 			toast({
-				title: '❌ Duplicated address error!',
+				title: 'Duplicated address error!',
 				description: 'Address already tracked.',
 				duration: 5000,
 				variant: 'destructive',
@@ -76,7 +76,7 @@ const AddNewAddressModal = ({ children }: AddNewAddressModalProps) => {
 					</AlertDialogCancel>
 					<AlertDialogAction asChild={true}>
 						<Button
-							className="flex w-fit"
+							className="flex w-full sm:w-fit"
 							disabled={newAddress.length !== 42}
 							onClick={() => handleAddTrackedAddress(newAddress)}
 						>

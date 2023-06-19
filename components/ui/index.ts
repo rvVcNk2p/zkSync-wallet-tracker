@@ -3,14 +3,20 @@ export * from './nav'
 
 export * from './button'
 export * from './card'
-export * from './data-table'
-export * from './form'
-export * from './input'
 export * from './label'
-export * from './slider'
-export * from './toaster'
+export * from './input'
 export * from './skeleton'
 
-// toast.tsx
+// accordion.tsx
+// alert-dialog.tsx
+// custom-button.tsx
+// data-table.tsx
+// form.tsx
 // navigation-menu.tsx
 // popover.tsx
+// progress.tsx
+// sheet.tsx
+// slider.tsx
+// table.tsx
+// toast.tsx
+// toaster.tsx

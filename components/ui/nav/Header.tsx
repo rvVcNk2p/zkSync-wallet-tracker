@@ -7,11 +7,13 @@ import {
 	NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
+import { SheetClose } from '@/components/ui/sheet'
 import { useIsMounted } from '@/hooks'
+import { DefaultSheet } from '@atoms'
 import { Hammer, Moon, SunDim } from '@phosphor-icons/react'
+import { List } from '@phosphor-icons/react'
 import { Chain, useAccountModal, useChainModal } from '@rainbow-me/rainbowkit'
-import { Button } from '@ui'
-import { Skeleton } from '@ui'
+import { Button, Skeleton } from '@ui'
 import { cn, shortenerAddress } from '@utils'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -29,6 +31,35 @@ const navItems: NavItem[] = [
 	// { href: '/forge', label: 'Forge' },
 ]
 
+const MobileTriggerElement = () => {
+	return <List size={24} weight="fill" className="cursor-pointer" />
+}
+
+interface NavigationMenuComponentProps {
+	isMobile?: boolean
+}
+const NavigationMenuComponent = ({
+	isMobile,
+}: NavigationMenuComponentProps) => {
+	const listClasses = isMobile
+		? 'gap-2 flex flex-col items-center h-screen justify-center'
+		: 'flex gap-2'
+
+	return (
+		<NavigationMenuList className={listClasses}>
+			{navItems.map((item: NavItem) => (
+				<NavigationMenuItem key={item.href}>
+					<Link href={item.href} legacyBehavior passHref>
+						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+							{isMobile ? <SheetClose>{item.label}</SheetClose> : item.label}
+						</NavigationMenuLink>
+					</Link>
+				</NavigationMenuItem>
+			))}
+		</NavigationMenuList>
+	)
+}
+
 const Header = (): JSX.Element => {
 	const { openAccountModal } = useAccountModal()
 	const { openChainModal } = useChainModal()
@@ -43,17 +74,15 @@ const Header = (): JSX.Element => {
 			<NavigationMenu className="flex justify-between py-4 px-8 mb-2 gap-20 border-b">
 				<Hammer size={48} weight="fill" className="min-w-fit" />
 
-				<NavigationMenuList className="gap-2">
-					{navItems.map((item: NavItem) => (
-						<NavigationMenuItem key={item.href}>
-							<Link href={item.href} legacyBehavior passHref>
-								<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-									{item.label}
-								</NavigationMenuLink>
-							</Link>
-						</NavigationMenuItem>
-					))}
-				</NavigationMenuList>
+				<div className="block sm:hidden">
+					<DefaultSheet trigger={<MobileTriggerElement />} size="xl">
+						<NavigationMenuComponent isMobile={true} />
+					</DefaultSheet>
+				</div>
+
+				<div className="hidden sm:block">
+					<NavigationMenuComponent />
+				</div>
 
 				<div className="flex gap-2">
 					<ThemeToggleButton />
