@@ -35,7 +35,7 @@ const ChangeAddressModal = ({ children }: AddNewAddressModalProps) => {
 		if (address === newAddress) {
 			toast({
 				title: '❌ Old address error!',
-				description: 'Nothing changed. Please enter a new address.',
+				description: 'Nothing changed. Please enter a new address!',
 				duration: 5000,
 				variant: 'destructive',
 			})
