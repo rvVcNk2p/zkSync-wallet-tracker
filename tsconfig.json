@@ -22,15 +22,15 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
-			"@ui": ["components/ui/*", "components/ui/"],
-			"@atoms": ["components/atoms/*", "components/atoms/"],
-			"@molecules": ["components/molecules/*", "components/molecules/"],
-			"@organisms": ["components/organisms/*", "components/organisms/"],
-			"@fetchers": ["hooks/fetchers/*", "hooks/fetchers/"],
-			"@hooks": ["hooks/*", "hooks/"],
-			"@types": ["types/*", "types/"],
-			"@stores": ["stores/*", "stores/"],
-			"@utils": ["utils/*", "utils/"]
+			"@ui": ["components/ui/", "components/ui/*"],
+			"@atoms": ["components/atoms/", "components/atoms/*"],
+			"@molecules": ["components/molecules/", "components/molecules/*"],
+			"@organisms": ["components/organisms/", "components/organisms/*"],
+			"@fetchers": ["hooks/fetchers/", "hooks/fetchers/*"],
+			"@hooks": ["hooks/", "hooks/*"],
+			"@types": ["types/", "types/*"],
+			"@stores": ["stores/", "stores/*"],
+			"@utils": ["utils/", "utils/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
