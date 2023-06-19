@@ -38,7 +38,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-	appName: 'Token Forge',
+	appName: 'Airdrop Hunter',
 	chains,
 })
 

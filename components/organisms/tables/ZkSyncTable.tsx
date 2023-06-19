@@ -74,9 +74,9 @@ export default function ZkSyncTable() {
 
 	const isLoding =
 		multipleTransactionsLoading ||
-		multipleTransactionsValidating ||
-		multipleBalancesValidating ||
+		// multipleTransactionsValidating
 		multipleBalancesLoading
+	// multipleBalancesValidating
 
 	const [isRefreshAvailable, setIsRefreshAvailable] = useState(true)
 
@@ -103,7 +103,7 @@ export default function ZkSyncTable() {
 			// Delay to allow the new address to be added to the store
 			setTimeout(() => {
 				handleFetchTrigger()
-			}, 100)
+			}, 500)
 		}
 	}, [getTrackedAddresses()])
 

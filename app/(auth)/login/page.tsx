@@ -15,7 +15,7 @@ const LoginPage: React.FC<LoginPageProps> = ({}: LoginPageProps) => {
 						}}
 					/>
 					<div className="relative z-20 flex items-center text-lg font-medium">
-						<Command className="w-6 h-6 mr-2" /> Token Forge
+						<Command className="w-6 h-6 mr-2" /> Airdrop Hunter
 					</div>
 					<div className="relative z-20 mt-auto">
 						<blockquote className="space-y-2">
