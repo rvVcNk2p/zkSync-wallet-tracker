@@ -1,6 +1,6 @@
-import { TokenDeployer } from '@molecules'
+import { TokenDeployer } from '@modules/forge/components'
 
-export default function ForgePage() {
+const ForgePage = () => {
 	return (
 		<div className="p-2">
 			<div className="grid grid-cols-1">
@@ -11,3 +11,5 @@ export default function ForgePage() {
 		</div>
 	)
 }
+
+export default ForgePage

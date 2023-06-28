@@ -5,8 +5,8 @@ import {
 	useGenerateTasks,
 	useGetOnChainBalances,
 	useGetTransactionsData,
-	useIsMounted,
 } from '@hooks'
+import { useIsMounted } from '@modules/shared/hooks'
 import {
 	AchievementAccordion,
 	ChangeAddressModal,

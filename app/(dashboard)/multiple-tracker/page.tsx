@@ -1,11 +1,12 @@
 'use client'
 
-import { useIsMounted } from '@hooks'
-import { ZkSyncTable } from '@organisms'
-import { Skeleton } from '@ui'
+import { ZkSyncTable } from '@modules/multiple-tracker/components'
+import { Skeleton } from '@modules/shared/components/atoms'
+import { useIsMounted } from '@modules/shared/hooks'
 
 export default function MultipleAddressTrackerPage() {
 	const isMounted = useIsMounted()
+
 	return (
 		<div className="p-2">
 			<div className="grid grid-cols-1">

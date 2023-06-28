@@ -1,6 +1,6 @@
 'use client'
 
-import { useIsMounted } from '@hooks'
+import { useIsMounted } from '@modules/shared/hooks'
 import { redirect } from 'next/navigation'
 import { useAccount } from 'wagmi'
 

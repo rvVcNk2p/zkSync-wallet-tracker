@@ -1,4 +1,4 @@
-import AuthForm from '@/components/molecules/forms/AuthForm'
+import { LoginAuthForm } from '@modules/login/components'
 import { Command } from 'lucide-react'
 
 interface LoginPageProps {}
@@ -29,7 +29,7 @@ const LoginPage: React.FC<LoginPageProps> = ({}: LoginPageProps) => {
 				</div>
 				<div className="lg:p-8">
 					<div className="mx-auto flex w-full flex-col items-center justify-center space-y-6 sm:w-[350px]">
-						<AuthForm />
+						<LoginAuthForm />
 					</div>
 				</div>
 			</div>

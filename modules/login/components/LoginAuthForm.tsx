@@ -1,14 +1,14 @@
 'use client'
 
-import { useIsMounted } from '@hooks'
+import { useIsMounted } from '@modules/shared/hooks'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { redirect } from 'next/navigation'
 import { FC } from 'react'
 import { useAccount } from 'wagmi'
 
-interface UserAuthFormProps {}
+interface LoginAuthFormProps {}
 
-const UserAuthForm: FC<UserAuthFormProps> = ({}: UserAuthFormProps) => {
+const LoginAuthForm: FC<LoginAuthFormProps> = ({}: LoginAuthFormProps) => {
 	const isMounted = useIsMounted()
 
 	const { isConnected } = useAccount()
@@ -32,4 +32,4 @@ const UserAuthForm: FC<UserAuthFormProps> = ({}: UserAuthFormProps) => {
 	)
 }
 
-export default UserAuthForm
+export default LoginAuthForm

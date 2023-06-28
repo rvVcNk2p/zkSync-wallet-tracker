@@ -3,9 +3,9 @@ export * from './nav'
 
 export * from './button'
 export * from './card'
+export { default as DefaultSheet } from './default-sheet'
 export * from './label'
 export * from './input'
-export * from './skeleton'
 
 // accordion.tsx
 // alert-dialog.tsx

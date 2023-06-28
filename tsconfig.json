@@ -23,11 +23,10 @@
 		"paths": {
 			"@/*": ["./*"],
 
+			"@modules/*": ["modules/*"],
+
 			"@ui": ["components/ui/"],
 			"@ui/*": ["components/ui/*"],
-
-			"@atoms": ["components/atoms/"],
-			"@atoms/*": ["components/atoms/*"],
 
 			"@molecules": ["components/molecules/"],
 			"@molecules/*": ["components/molecules/*"],

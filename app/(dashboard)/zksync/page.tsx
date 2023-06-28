@@ -1,10 +1,10 @@
 'use client'
 
-import { useIsMounted } from '@/hooks'
+import { Skeleton } from '@modules/shared/components/atoms'
+import { useIsMounted } from '@modules/shared/hooks'
 import { SingleAddressSearch } from '@molecules'
 import { SingleZksyncContent } from '@organisms'
 import { useSingleZksyncStore } from '@stores'
-import { Skeleton } from '@ui'
 
 const ZksyncPage = () => {
 	const address = useSingleZksyncStore((state) => state.address)
