@@ -6,6 +6,7 @@ import {
 	useGetOnChainBalances,
 	useGetTransactionsData,
 } from '@hooks'
+import { Button, Label } from '@modules/shared/components/atoms'
 import { useIsMounted } from '@modules/shared/hooks'
 import {
 	AchievementAccordion,
@@ -13,7 +14,6 @@ import {
 	SingleCard,
 } from '@molecules'
 import { ArrowsClockwise, CircleNotch } from '@phosphor-icons/react'
-import { Button, Label } from '@ui'
 import { transformResultArrayToObject, usdFormatter } from '@utils'
 import moment from 'moment'
 import { useEffect } from 'react'

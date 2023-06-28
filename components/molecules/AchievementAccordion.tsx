@@ -5,7 +5,7 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from '@/components/ui/accordion'
+} from '@modules/shared/components/atoms/accordion'
 import { CheckFat, XCircle } from '@phosphor-icons/react'
 import { TaskDescriptor } from '@types'
 

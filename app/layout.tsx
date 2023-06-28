@@ -1,4 +1,4 @@
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@modules/shared/components/atoms/toaster'
 import { RainbowKitWrapper, ThemeWrapper } from '@organisms'
 
 import './globals.css'

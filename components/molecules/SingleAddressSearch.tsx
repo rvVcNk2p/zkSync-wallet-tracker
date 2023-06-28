@@ -1,7 +1,7 @@
 'use client'
 
+import { Button, Input, Label } from '@modules/shared/components/atoms'
 import { useSingleZksyncStore } from '@stores'
-import { Button, Input, Label } from '@ui'
 import { useState } from 'react'
 
 const SingleAddressSearch = () => {

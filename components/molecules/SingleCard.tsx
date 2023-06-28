@@ -1,4 +1,4 @@
-import { Card, Label } from '@ui'
+import { Card, Label } from '@modules/shared/components/atoms'
 import { isValidElement } from 'react'
 
 type SingleCardProps = {

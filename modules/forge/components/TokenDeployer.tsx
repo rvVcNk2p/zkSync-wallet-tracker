@@ -1,18 +1,8 @@
 'use client'
 
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form'
 import { erc20Contract } from '@constants'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@hooks'
-import { Spinner } from '@phosphor-icons/react'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import {
 	Button,
 	Card,
@@ -23,7 +13,17 @@ import {
 	CardTitle,
 	Input,
 	Label,
-} from '@ui'
+} from '@modules/shared/components/atoms'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@modules/shared/components/atoms/form'
+import { Spinner } from '@phosphor-icons/react'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { shortenerAddress } from '@utils'
 import Link from 'next/link'
 import { useState } from 'react'

@@ -1,8 +1,8 @@
 'use client'
 
+import { Label } from '@modules/shared/components/atoms'
 import * as LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
-import { Label } from '@ui'
 import { cn } from '@utils'
 import * as React from 'react'
 import {

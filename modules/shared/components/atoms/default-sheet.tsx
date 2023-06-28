@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui'
+import { Button } from '@modules/shared/components/atoms'
 import {
 	Sheet,
 	SheetClose,
@@ -8,7 +8,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from '@/components/ui/sheet'
+} from '@modules/shared/components/atoms/sheet'
 
 interface DefaultSheetProps {
 	children: React.ReactNode

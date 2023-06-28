@@ -1,5 +1,7 @@
 'use client'
 
+import { useToast } from '@hooks'
+import { Button, Input } from '@modules/shared/components/atoms'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -10,11 +12,9 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 	AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { useToast } from '@hooks'
+} from '@modules/shared/components/atoms/alert-dialog'
 import { Plus } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
-import { Button, Input } from '@ui'
 import { useState } from 'react'
 
 interface AddNewAddressModalProps {

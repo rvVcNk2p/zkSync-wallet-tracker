@@ -1,19 +1,19 @@
 'use client'
 
+import { Skeleton } from '@modules/shared/components/atoms'
+import { Button, DefaultSheet } from '@modules/shared/components/atoms'
 import {
 	NavigationMenu,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
-} from '@/components/ui/navigation-menu'
-import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
-import { SheetClose } from '@/components/ui/sheet'
-import { Skeleton } from '@modules/shared/components/atoms'
+	navigationMenuTriggerStyle,
+} from '@modules/shared/components/atoms/navigation-menu'
+import { SheetClose } from '@modules/shared/components/atoms/sheet'
 import { useIsMounted } from '@modules/shared/hooks'
 import { Hammer, Moon, SunDim } from '@phosphor-icons/react'
 import { List } from '@phosphor-icons/react'
 import { Chain, useAccountModal, useChainModal } from '@rainbow-me/rainbowkit'
-import { Button, DefaultSheet } from '@ui'
 import { cn, shortenerAddress } from '@utils'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'

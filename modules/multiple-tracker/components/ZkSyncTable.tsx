@@ -1,16 +1,16 @@
 'use client'
 
-import { DataTable } from '@/components/ui/data-table'
 import { ChainIds } from '@constants'
 import {
 	useGetMultiOnChainBalances,
 	useGetMultipleTransactionsData,
 	usePrevious,
 } from '@hooks'
+import { Button, Label } from '@modules/shared/components/atoms'
+import { DataTable } from '@modules/shared/components/atoms/data-table'
 import { AddNewAddressModal } from '@molecules'
 import { ArrowsClockwise, Plus } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
-import { Button, Label } from '@ui'
 import { transformResultArrayToObject } from '@utils'
 import { useEffect, useState } from 'react'
 
