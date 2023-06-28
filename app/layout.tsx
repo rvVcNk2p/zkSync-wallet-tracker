@@ -1,5 +1,8 @@
 import { Toaster } from '@modules/shared/components/atoms/toaster'
-import { RainbowKitWrapper, ThemeWrapper } from '@organisms'
+import {
+	RainbowKitWrapper,
+	ThemeWrapper,
+} from '@modules/shared/components/wrappers'
 
 import './globals.css'
 

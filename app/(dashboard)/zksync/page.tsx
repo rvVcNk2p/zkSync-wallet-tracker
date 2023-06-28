@@ -2,9 +2,11 @@
 
 import { Skeleton } from '@modules/shared/components/atoms'
 import { useIsMounted } from '@modules/shared/hooks'
-import { SingleAddressSearch } from '@molecules'
-import { SingleZksyncContent } from '@organisms'
-import { useSingleZksyncStore } from '@stores'
+import {
+	SingleAddressSearch,
+	SingleZksyncContent,
+} from '@modules/zksync/components'
+import { useSingleZksyncStore } from '@modules/zksync/stores'
 
 const ZksyncPage = () => {
 	const address = useSingleZksyncStore((state) => state.address)

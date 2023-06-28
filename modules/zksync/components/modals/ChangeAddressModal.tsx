@@ -13,8 +13,8 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@modules/shared/components/atoms/alert-dialog'
+import { useSingleZksyncStore } from '@modules/zksync/stores'
 import { Plus } from '@phosphor-icons/react'
-import { useSingleZksyncStore } from '@stores'
 import { useState } from 'react'
 
 interface AddNewAddressModalProps {

@@ -1,5 +1,5 @@
+import { useSingleZksyncStore } from '@modules/zksync/stores'
 import type { RawTask, TaskDescriptor } from '@types'
-import { useSingleZksyncStore } from 'stores'
 
 const bridgeTask = (bridgedValueInUSD: number) => {
 	return {

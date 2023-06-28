@@ -8,16 +8,16 @@ import {
 } from '@hooks'
 import { Button, Label } from '@modules/shared/components/atoms'
 import { useIsMounted } from '@modules/shared/hooks'
+import { SingleCard } from '@modules/zksync/components'
 import {
 	AchievementAccordion,
 	ChangeAddressModal,
-	SingleCard,
-} from '@molecules'
+} from '@modules/zksync/components'
+import { useSingleZksyncStore } from '@modules/zksync/stores'
 import { ArrowsClockwise, CircleNotch } from '@phosphor-icons/react'
 import { transformResultArrayToObject, usdFormatter } from '@utils'
 import moment from 'moment'
 import { useEffect } from 'react'
-import { useSingleZksyncStore } from 'stores'
 import { Address } from 'wagmi'
 
 const CardTitle = ({ address }: { address: Address }) => {

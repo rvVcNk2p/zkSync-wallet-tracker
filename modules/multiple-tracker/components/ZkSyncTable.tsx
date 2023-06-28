@@ -6,11 +6,11 @@ import {
 	useGetMultipleTransactionsData,
 	usePrevious,
 } from '@hooks'
+import { AddNewAddressModal } from '@modules/multiple-tracker/components'
+import { useTrackedAddressesStore } from '@modules/multiple-tracker/stores'
 import { Button, Label } from '@modules/shared/components/atoms'
 import { DataTable } from '@modules/shared/components/atoms/data-table'
-import { AddNewAddressModal } from '@molecules'
 import { ArrowsClockwise, Plus } from '@phosphor-icons/react'
-import { useTrackedAddressesStore } from '@stores'
 import { transformResultArrayToObject } from '@utils'
 import { useEffect, useState } from 'react'
 
@@ -18,7 +18,7 @@ import { columns } from './ZkSyncColumns'
 
 const trackedTokens = ['ETH', 'WETH', 'USDC']
 
-export default function ZkSyncTable() {
+const ZkSyncTable = () => {
 	const trackedAddresses = useTrackedAddressesStore(
 		(state) => state.trackedAddresses,
 	)
@@ -141,3 +141,5 @@ export default function ZkSyncTable() {
 		</div>
 	)
 }
+
+export default ZkSyncTable

@@ -25,15 +25,6 @@
 
 			"@modules/*": ["modules/*"],
 
-			"@ui": ["components/ui/"],
-			"@ui/*": ["components/ui/*"],
-
-			"@molecules": ["components/molecules/"],
-			"@molecules/*": ["components/molecules/*"],
-
-			"@organisms": ["components/organisms/"],
-			"@organisms/*": ["components/organisms/*"],
-
 			"@fetchers": ["hooks/fetchers/"],
 			"@fetchers/*": ["hooks/fetchers/*"],
 
@@ -42,9 +33,6 @@
 
 			"@types": ["types/"],
 			"@types/*": ["types/*"],
-
-			"@stores": ["stores/"],
-			"@stores/*": ["stores/*"],
 
 			"@utils": ["utils"],
 			"@utils/*": ["utils/*"],
