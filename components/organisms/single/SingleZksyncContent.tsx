@@ -1,5 +1,6 @@
 'use client'
 
+import { ChainIds } from '@constants'
 import {
 	useGenerateTasks,
 	useGetOnChainBalances,
@@ -13,7 +14,7 @@ import {
 } from '@molecules'
 import { ArrowsClockwise, CircleNotch } from '@phosphor-icons/react'
 import { Button, Label } from '@ui'
-import { ChainIds, transformResultArrayToObject, usdFormatter } from '@utils'
+import { transformResultArrayToObject, usdFormatter } from '@utils'
 import moment from 'moment'
 import { useEffect } from 'react'
 import { useSingleZksyncStore } from 'stores'

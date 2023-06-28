@@ -1,8 +1,7 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { shortenerAddress } from '@utils'
-import { usdFormatter } from '@utils'
+import { shortenerAddress, usdFormatter } from '@utils'
 import moment from 'moment'
 import Link from 'next/link'
 

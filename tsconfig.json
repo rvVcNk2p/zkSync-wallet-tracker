@@ -22,15 +22,36 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
-			"@ui": ["components/ui/", "components/ui/*"],
-			"@atoms": ["components/atoms/", "components/atoms/*"],
-			"@molecules": ["components/molecules/", "components/molecules/*"],
-			"@organisms": ["components/organisms/", "components/organisms/*"],
-			"@fetchers": ["hooks/fetchers/", "hooks/fetchers/*"],
-			"@hooks": ["hooks/", "hooks/*"],
-			"@types": ["types/", "types/*"],
-			"@stores": ["stores/", "stores/*"],
-			"@utils": ["utils/", "utils/*"]
+
+			"@ui": ["components/ui/"],
+			"@ui/*": ["components/ui/*"],
+
+			"@atoms": ["components/atoms/"],
+			"@atoms/*": ["components/atoms/*"],
+
+			"@molecules": ["components/molecules/"],
+			"@molecules/*": ["components/molecules/*"],
+
+			"@organisms": ["components/organisms/"],
+			"@organisms/*": ["components/organisms/*"],
+
+			"@fetchers": ["hooks/fetchers/"],
+			"@fetchers/*": ["hooks/fetchers/*"],
+
+			"@hooks": ["hooks/"],
+			"@hooks/*": ["hooks/*"],
+
+			"@types": ["types/"],
+			"@types/*": ["types/*"],
+
+			"@stores": ["stores/"],
+			"@stores/*": ["stores/*"],
+
+			"@utils": ["utils"],
+			"@utils/*": ["utils/*"],
+
+			"@constants": ["constants"],
+			"@constants/*": ["constants/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

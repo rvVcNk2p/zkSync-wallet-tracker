@@ -1,6 +1,7 @@
 'use client'
 
 import { DataTable } from '@/components/ui/data-table'
+import { ChainIds } from '@constants'
 import {
 	useGetMultiOnChainBalances,
 	useGetMultipleTransactionsData,
@@ -10,8 +11,8 @@ import { AddNewAddressModal } from '@molecules'
 import { ArrowsClockwise, Plus } from '@phosphor-icons/react'
 import { useTrackedAddressesStore } from '@stores'
 import { Button, Label } from '@ui'
-import { ChainIds, transformResultArrayToObject } from '@utils'
-import { use, useEffect, useState } from 'react'
+import { transformResultArrayToObject } from '@utils'
+import { useEffect, useState } from 'react'
 
 import { columns } from './ZkSyncColumns'
 

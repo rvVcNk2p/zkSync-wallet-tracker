@@ -8,6 +8,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form'
+import { erc20Contract } from '@constants'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@hooks'
 import { Spinner } from '@phosphor-icons/react'
@@ -23,7 +24,7 @@ import {
 	Input,
 	Label,
 } from '@ui'
-import { erc20Contract, shortenerAddress } from '@utils'
+import { shortenerAddress } from '@utils'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'

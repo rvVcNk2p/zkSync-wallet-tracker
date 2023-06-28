@@ -1,4 +1,4 @@
-import { ChainIds } from '@utils'
+import { ChainIds } from '@constants'
 
 export const rpcUrls = {
 	[ChainIds.ZK_SYNC_ERA_MAINNET]: {

@@ -1,4 +1,4 @@
-import { ChainIds } from '@utils'
+import { ChainIds } from '@constants'
 import { Address } from 'viem'
 
 interface TokenAddresses {
