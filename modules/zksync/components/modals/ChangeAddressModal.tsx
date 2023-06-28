@@ -1,6 +1,5 @@
 'use client'
 
-import { useToast } from '@hooks'
 import { Button, Input } from '@modules/shared/components/atoms'
 import {
 	AlertDialog,
@@ -13,6 +12,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@modules/shared/components/atoms/alert-dialog'
+import { useToast } from '@modules/shared/hooks'
 import { useSingleZksyncStore } from '@modules/zksync/stores'
 import { Plus } from '@phosphor-icons/react'
 import { useState } from 'react'

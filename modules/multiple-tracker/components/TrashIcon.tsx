@@ -1,5 +1,5 @@
-import { useToast } from '@hooks'
 import { useTrackedAddressesStore } from '@modules/multiple-tracker/stores'
+import { useToast } from '@modules/shared/hooks'
 import { Trash } from '@phosphor-icons/react'
 
 type TrashActionIconProps = {

@@ -1,6 +1,5 @@
 'use client'
 
-import { useToast } from '@hooks'
 import { useTrackedAddressesStore } from '@modules/multiple-tracker/stores'
 import { Button, Input } from '@modules/shared/components/atoms'
 import {
@@ -14,6 +13,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@modules/shared/components/atoms/alert-dialog'
+import { useToast } from '@modules/shared/hooks'
 import { Plus } from '@phosphor-icons/react'
 import { useState } from 'react'
 

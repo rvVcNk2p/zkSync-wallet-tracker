@@ -1,6 +1,6 @@
 'use client'
 
-import { multiBalancesFetcher } from '@fetchers'
+import { multiBalancesFetcher } from '@modules/shared/hooks/fetchers'
 import { useState } from 'react'
 import useSWR from 'swr'
 import { Address } from 'viem'

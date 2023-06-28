@@ -1,4 +1,4 @@
-import { balancesFetcher } from '@fetchers'
+import { balancesFetcher } from '@modules/shared/hooks/fetchers'
 import { Address } from 'viem'
 
 type BalanceMultiFetcherData = {

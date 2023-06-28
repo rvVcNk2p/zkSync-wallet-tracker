@@ -1,18 +1,16 @@
 'use client'
 
-import {
-	useGenerateTasks,
-	useGetOnChainBalances,
-	useGetTransactionsData,
-} from '@hooks'
 import { Button, Label } from '@modules/shared/components/atoms'
 import { ChainIds } from '@modules/shared/constants'
+import { useGetOnChainBalances } from '@modules/shared/hooks'
 import { useIsMounted } from '@modules/shared/hooks'
 import { SingleCard } from '@modules/zksync/components'
 import {
 	AchievementAccordion,
 	ChangeAddressModal,
 } from '@modules/zksync/components'
+import { useGetTransactionsData } from '@modules/zksync/hooks'
+import { useGenerateTasks } from '@modules/zksync/hooks'
 import { useSingleZksyncStore } from '@modules/zksync/stores'
 import { ArrowsClockwise, CircleNotch } from '@phosphor-icons/react'
 import { transformResultArrayToObject, usdFormatter } from '@utils'

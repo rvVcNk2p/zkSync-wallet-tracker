@@ -1,6 +1,6 @@
 'use client'
 
-import { balancesFetcher } from '@fetchers'
+import { balancesFetcher } from '@modules/shared/hooks/fetchers'
 import useSWR from 'swr'
 import { Address } from 'viem'
 

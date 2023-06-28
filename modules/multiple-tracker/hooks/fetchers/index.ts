@@ -1,0 +1,1 @@
+export { multiTransactionsFetcher } from './multiTransactionsFetcher'

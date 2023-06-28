@@ -1,6 +1,6 @@
 'use client'
 
-import { multiTransactionsFetcher } from '@fetchers'
+import { multiTransactionsFetcher } from '@modules/multiple-tracker/hooks/fetchers'
 import { useState } from 'react'
 import useSWR from 'swr'
 import { Address } from 'viem'

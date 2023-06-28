@@ -1,4 +1,4 @@
-import { transactionFetcher } from '@fetchers'
+import { transactionFetcher } from '@modules/zksync/hooks/fetchers'
 
 type MultiTransactionsFetcherProps = {
 	addresses: string

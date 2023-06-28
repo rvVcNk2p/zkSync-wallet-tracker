@@ -1,4 +1,4 @@
-import { defaultFetcher } from '@fetchers'
+import { defaultFetcher } from '@modules/shared/hooks/fetchers'
 import type { TransactionResponse } from '@types'
 import type { Transaction } from '@types'
 import { generateLimitAndOffsetArray, hexToBn } from '@utils'

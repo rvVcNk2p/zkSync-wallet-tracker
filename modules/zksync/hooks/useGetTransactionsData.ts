@@ -1,6 +1,6 @@
 'use client'
 
-import { transactionFetcher } from '@fetchers'
+import { transactionFetcher } from '@modules/zksync/hooks/fetchers'
 import useSWR from 'swr'
 import { Address } from 'wagmi'
 

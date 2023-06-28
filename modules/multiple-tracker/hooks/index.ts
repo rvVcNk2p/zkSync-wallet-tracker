@@ -1,0 +1,1 @@
+export { useGetMultipleTransactionsData } from './useGetMultipleTransactionsData'

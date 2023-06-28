@@ -25,12 +25,6 @@
 
 			"@modules/*": ["modules/*"],
 
-			"@fetchers": ["hooks/fetchers/"],
-			"@fetchers/*": ["hooks/fetchers/*"],
-
-			"@hooks": ["hooks/"],
-			"@hooks/*": ["hooks/*"],
-
 			"@types": ["types/"],
 			"@types/*": ["types/*"],
 

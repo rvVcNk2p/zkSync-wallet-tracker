@@ -1,15 +1,13 @@
 'use client'
 
-import {
-	useGetMultiOnChainBalances,
-	useGetMultipleTransactionsData,
-	usePrevious,
-} from '@hooks'
 import { AddNewAddressModal } from '@modules/multiple-tracker/components'
+import { useGetMultipleTransactionsData } from '@modules/multiple-tracker/hooks'
 import { useTrackedAddressesStore } from '@modules/multiple-tracker/stores'
 import { Button, Label } from '@modules/shared/components/atoms'
 import { DataTable } from '@modules/shared/components/atoms/data-table'
 import { ChainIds } from '@modules/shared/constants'
+import { usePrevious } from '@modules/shared/hooks'
+import { useGetMultiOnChainBalances } from '@modules/shared/hooks'
 import { ArrowsClockwise, Plus } from '@phosphor-icons/react'
 import { transformResultArrayToObject } from '@utils'
 import { useEffect, useState } from 'react'

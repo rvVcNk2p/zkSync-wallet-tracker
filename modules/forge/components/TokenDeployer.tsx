@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useToast } from '@hooks'
 import { erc20Contract } from '@modules/forge/constants'
 import {
 	Button,
@@ -22,6 +21,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@modules/shared/components/atoms/form'
+import { useToast } from '@modules/shared/hooks'
 import { Spinner } from '@phosphor-icons/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { shortenerAddress } from '@utils'
