@@ -1,4 +1,4 @@
-import { tokenAddresses } from '@constants'
+import { tokenAddresses } from '@modules/shared/constants'
 import { fetchBalance } from '@wagmi/core'
 import { Address, formatUnits } from 'viem'
 

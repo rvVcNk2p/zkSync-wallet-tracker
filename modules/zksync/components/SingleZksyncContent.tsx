@@ -1,12 +1,12 @@
 'use client'
 
-import { ChainIds } from '@constants'
 import {
 	useGenerateTasks,
 	useGetOnChainBalances,
 	useGetTransactionsData,
 } from '@hooks'
 import { Button, Label } from '@modules/shared/components/atoms'
+import { ChainIds } from '@modules/shared/constants'
 import { useIsMounted } from '@modules/shared/hooks'
 import { SingleCard } from '@modules/zksync/components'
 import {

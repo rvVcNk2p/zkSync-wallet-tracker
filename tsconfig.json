@@ -35,10 +35,7 @@
 			"@types/*": ["types/*"],
 
 			"@utils": ["utils"],
-			"@utils/*": ["utils/*"],
-
-			"@constants": ["constants"],
-			"@constants/*": ["constants/*"]
+			"@utils/*": ["utils/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

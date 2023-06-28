@@ -1,8 +1,8 @@
 'use client'
 
-import { erc20Contract } from '@constants'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@hooks'
+import { erc20Contract } from '@modules/forge/constants'
 import {
 	Button,
 	Card,
